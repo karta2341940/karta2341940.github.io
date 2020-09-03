@@ -1,3 +1,12 @@
+@media (max-width: 1200px)
+{
+    .pic{width: 16%;}
+}
+@media (max-width: 991px)
+{
+    .pic{width: 20%;}
+
+}
 @media (max-width: 767px) 
 {
     #collapse-nav{justify-content: flex-start;}
