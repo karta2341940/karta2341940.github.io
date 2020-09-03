@@ -8,9 +8,7 @@ body{background-color: rgb(255, 255, 255)}
 
 .pic:hover{cursor: pointer;}
 
-.content{height: 10cm;}
-
-.news {margin-top: 1%;height: 10cm;}
+.news {margin-top: 1%;}
 
 ul,li{padding:0; margin:0;list-style: none;margin-top: 2%;}
 
@@ -22,12 +20,12 @@ ul li{margin-top: 1%;}
 
 footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255, 255);}
 
+#News{height: 10cm;}
+
 #About{height: 10cm;}
 
 #Link2{height: 10cm;}
 
 #Contact{height: 10cm;}
-
-
 
 
