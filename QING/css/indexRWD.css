@@ -9,5 +9,6 @@
 }
 @media (max-width: 767px) 
 {
+    #xyz{justify-content: flex-end;}
     #collapse-nav{justify-content: flex-start;}
 }
