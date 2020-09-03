@@ -7,6 +7,7 @@
         <meta name="keywords" content="QTK,qing taiko,Qing Taiko, 擎太鼓,">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./fontawsome/css/all.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
         
         <link rel="stylesheet" href="./css/index.css">
@@ -14,30 +15,40 @@
     </head>
 
     <body>
-        <nav class=" navbar navbar-expand-lg fixed-top navbar-dark">
+        <nav class=" navbar navbar-expand-md fixed-top navbar-dark">
             <div class="container no-padding">
                 <img class="navbar-brand pic" src="./pic/QingTaiko2.svg">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-nav">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <!--
 
                     <a class="navbar-brand" href="#">Logo</a>
                 -->
-                
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">關於我們</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">聯絡我們</a>
-                    </li>
-                </ul>
+                <div id="collapse-nav" class="collapse navbar-collapse nav justify-content-end">
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                                <a class="nav-link" href="#">關於我們</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link2</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">聯絡我們</a>
+                        </li>
+                    </ul>
+
+                </div>
             </div>
         </nav>
+<!------------------------------------------------------------------------------------------------------------->
         <video autoplay playsinline muted loop class="fsc" id="vd" onplay="bgplay()">
             <source src="https://img.notorious-2019.com/59304eac8788af18784a5d87.mp4" type="video/mp4">
         </video>
+<!------------------------------------------------------------------------------------------------------------->
         <div class="container news">
             <h1>News</h1>
                 <div class="news">
@@ -53,7 +64,7 @@
                 </div>
             </div>
         </div>
-
+        <script src="./fontawsome/js/all.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
