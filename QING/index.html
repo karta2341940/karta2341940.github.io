@@ -7,7 +7,9 @@
         <meta name="keywords" content="QTK,qing taiko,Qing Taiko, 擎太鼓,">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="./js/index.js"></script>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="./fontawsome/css/all.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
@@ -18,10 +20,10 @@
     <body>
         <div>
             <img class="pic fixed-top" src="./pic/QingTaiko2.svg">
-            <nav class=" navbar navbar-expand-md fixed-top navbar-dark">
+            <nav class=" navbar navbar-expand-md fixed-top navbar-dark" id="topbar">
                 <i class="navbar-brand"></i>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-nav">
-                    <div class="container no-padding" id="xyz">
+                    <div class="container no-padding">
                         <i class="fas fa-bars"></i>
                     </button>
                     <!--
@@ -43,7 +45,6 @@
                                 <a class="nav-link" href="#">聯絡我們</a>
                             </li>
                         </ul>
-                        
                     </div>
                 </div>
             </nav>
@@ -68,9 +69,26 @@
                 </div>
             </div>
         </div>
+<!------------------------------------------------------------------------------------------------------------->
+        <div class="container" id="About" data-aos="fade-up">
+            <h1>About Us</h1>
+        </div>
+<!------------------------------------------------------------------------------------------------------------->
+        <div class="container" id="Link2" data-aos="fade-up">
+            <h1>Link2</h1>
+        </div>
+<!------------------------------------------------------------------------------------------------------------->
+        <div class="container" id="Contact" data-aos="fade-up">
+            <h1>Contact Us</h1>
+        </div>
+<!------------------------------------------------------------------------------------------------------------
+        <div class="container" style="height: 10cm;"></div>
+<!------------------------------------------------------------------------------------------------------------->
+<footer>© 2020 擎太鼓 ALL RIGHTS RESERVED.</footer>
+<!------------------------------------------------------------------------------------------------------------->
         <script src="./fontawsome/js/all.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        
+        <script>AOS.init();</script>
     </body>
 </html>

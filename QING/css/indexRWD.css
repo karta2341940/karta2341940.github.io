@@ -9,6 +9,7 @@
 }
 @media (max-width: 767px) 
 {
-    #xyz{justify-content: flex-end;}
+    /*.pic{position: absolute;z-index: 1000;}
+    #topbar{background-color: black;}*/
     #collapse-nav{justify-content: flex-start;}
 }
