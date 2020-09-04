@@ -20,11 +20,11 @@ ul li{margin-top: 1%;}
 
 footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255, 255);}
 
-.xyz{margin: 0%;}
+.xyz{margin: 0%;display: inline-block;}
 
 #News{height: 10cm;}
 
-#About{height: 10cm;}
+#About{height: 10cm;height: auto;}
 
 #Link2{height: 10cm;}
 
