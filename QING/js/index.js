@@ -19,8 +19,15 @@ function barblack()
 
 function gomuku(target)
 {
-    let t =$(target).offset().top-30;
-    $(window).scrollTop(t);
+    if(target != L0)
+    {
+        let t =$(target).offset().top-30;
+        $(window).scrollTop(t);
+    }
+    else
+    {
+        $(window).scrollTop(0);
+    }
 }
 
 $(document).ready(function(){
