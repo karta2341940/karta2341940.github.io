@@ -12,15 +12,13 @@ body{background-color: rgb(255, 255, 255)}
 
 ul,li{padding:0; margin:0;list-style: none;margin-top: 2%;}
 
-ul li{margin-top: 1%;}
-
 .news-content a{color: rgb(63, 63, 63);}
 
 #collapse-nav{justify-content: flex-end;}
 
 footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255, 255);}
 
-.xyz{margin: 0%;display: inline-block;}
+.xyz{margin: 8.7%;display: inline-block;}
 
 #News{height: 10cm;}
 
@@ -31,3 +29,14 @@ footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255,
 #Contact{height: 10cm;}
 
 .content{width: 60%;background-color: rgba(0, 0, 255, 0);font-size: 1.25em;margin-top: 2%;}
+
+#menu{border: 0cm;outline: 0cm;}
+
+#menu:hover{color: rgb(255, 255, 255);}
+
+
+
+
+
+
+
