@@ -1,4 +1,4 @@
-*{font-family: "Noto Sans TC",adiHausBold,Arial,Helvetica,Verdana,microsoft jhenghei,sans-serif;}
+*{font-family: "Noto Sans TC",adiHausBold,Arial,Helvetica,Verdana,microsoft jhenghei,sans-serif;overflow-x: hidden;}
 
 body{background-color: rgb(255, 255, 255)}
 
@@ -12,7 +12,7 @@ body{background-color: rgb(255, 255, 255)}
 
 .pic{position: top;z-index: 1000;}
 
-    #topbar{position: top;z-index: 999;}
+#topbar{position: top;z-index: 999;width: 100% !important;}
 
 ul,li{padding:0; margin:0;list-style: none;}
 

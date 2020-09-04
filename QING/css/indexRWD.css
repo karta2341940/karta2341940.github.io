@@ -13,6 +13,7 @@
 }
 @media (max-width: 767px) 
 {
+    .content{width: 85%;background-color: rgba(0, 0, 255, 0);font-size: 1.25em;margin-top: 2%;}
     #collapse-nav{justify-content: flex-start;}
     .navbar-nav{width: 98%;}
     .nav-item a{color: rgb(255, 255, 255) !important;}
