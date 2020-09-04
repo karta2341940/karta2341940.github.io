@@ -44,7 +44,9 @@ footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255,
 
 a:hover{cursor: pointer;}
 
-#gotop{position: fixed;z-index: 2; color: rgb(87, 199, 219);margin: 97% 45%;}
+#gotop:hover{cursor: pointer;color: rgb(47, 104, 114)}
+
+#gotop{position: fixed;z-index: 2; color: rgb(87, 199, 219);margin: 40% 95%;}
 
 
 
