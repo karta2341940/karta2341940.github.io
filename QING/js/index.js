@@ -6,12 +6,12 @@ function bgplay()
 function barblack()
 {
     let bar=document.getElementById("topbar");
-    const barblack =(bar.offsetTop);
-    if(window.scrollY > 0)
+    const barblack =vd.clientHeight;
+    if(window.scrollY > barblack)
     {
         bar.classList.add("bg-dark");
     }
-    else if(window.scrollY == 0)
+    else if(window.scrollY < barblack)
     {
         bar.classList.remove("bg-dark");
     }
@@ -27,17 +27,4 @@ window.addEventListener("scroll",barblack);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-console.log("Version : 1.0.7-1");
+console.log("Version : 1.0.8");

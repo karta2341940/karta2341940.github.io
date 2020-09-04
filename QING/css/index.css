@@ -24,9 +24,9 @@ ul,li{padding:0; margin:0;list-style: none;}
 
 #collapse-nav{justify-content: flex-end;}
 
-footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255, 255);}
+footer{text-align: center;background-color: rgb(26, 26, 26);color: rgb(255, 255, 255);font-size: 0.85em;}
 
-.xyz{margin: 8.7%;display: inline-block;}
+.xyz{margin: 3% 8%;display: inline-block;}
 
 #News{height: 10cm;}
 
