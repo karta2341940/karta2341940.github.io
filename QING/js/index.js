@@ -17,6 +17,12 @@ function barblack()
     }
 }
 
+function gomuku(target)
+{
+    let t =$(target).offset().top-30;
+    $(window).scrollTop(t);
+}
+
 $(document).ready(function(){
     $(".nav-link").click(function(){
       $(".collapse").collapse('hide');
