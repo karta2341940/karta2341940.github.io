@@ -10,7 +10,11 @@ body{background-color: rgb(255, 255, 255)}
 
 .news {margin-top: 1%;}
 
-ul,li{padding:0; margin:0;list-style: none;margin-top: 1.5%;}
+.pic{position: top;z-index: 1000;}
+
+    #topbar{position: top;z-index: 999;}
+
+ul,li{padding:0; margin:0;list-style: none;}
 
 .news-content a{color: rgb(63, 63, 63);}
 

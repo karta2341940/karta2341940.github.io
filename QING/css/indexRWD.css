@@ -1,16 +1,18 @@
 @media (max-width: 1200px)
 {
+    
     .pic{width: 16%;}
+
 }
 @media (max-width: 991px)
 {
     .pic{width: 20%;}
-
+    /*
+    ul,li{padding:0; margin:0;list-style: none;margin-top: 1%;}
+*/
 }
 @media (max-width: 767px) 
 {
-    /*.pic{position: absolute;z-index: 1000;}
-    #topbar{background-color: black;}*/
     #collapse-nav{justify-content: flex-start;}
     .navbar-nav{width: 98%;}
     .nav-item a{color: rgb(255, 255, 255) !important;}
