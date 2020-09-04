@@ -16,6 +16,12 @@ function barblack()
         bar.classList.remove("bg-dark");
     }
 }
+
+$(document).ready(function(){
+    $(".nav-link").click(function(){
+      $(".collapse").collapse('hide');
+    });
+  });
 window.addEventListener("scroll",barblack);
 
 
