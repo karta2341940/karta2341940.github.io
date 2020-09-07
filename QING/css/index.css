@@ -46,7 +46,7 @@ a:hover{cursor: pointer;}
 
 #gotop:hover{cursor: pointer;color: rgb(47, 104, 114)}
 
-#gotop{position: fixed;z-index: 2; color: rgb(87, 199, 219);margin: 40% 95%;}
+#gotop{position: fixed;z-index: 2; color: rgb(87, 199, 219);margin-top: 40%;right: 10px;}
 
 
 
