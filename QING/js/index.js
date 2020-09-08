@@ -61,4 +61,4 @@ window.addEventListener("scroll",barblack);
 
 
 
-console.log("Version : 1.0.9");
+console.log("Version : 1.1.0");
