@@ -20,7 +20,7 @@
     ul li{margin-top: 0%;}
     .nav-item:hover{background-color: rgba(255, 255, 255, 0.432);}
     #gotop{margin-top: 100vw;}
-    #vd{margin-top: 10px;}
+    #vd{margin-top: 40px;}
     #qtk{width: 15%;}
 }
 @media (max-width: 375px) 
@@ -32,6 +32,6 @@
     ul li{margin-top: 0%;}
     .nav-item:hover{background-color: rgba(255, 255, 255, 0.432);}
     #gotop{margin-top: 100vw;}
-    #vd{margin-top: 10px;}
+    #vd{margin-top: 50px;}
     #qtk{width: 30%;}
 }
