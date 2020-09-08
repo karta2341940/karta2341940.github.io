@@ -21,11 +21,13 @@
     <body>
         <div>
             <!--
-                <img class="pic fixed-top" src="./pic/QingTaiko2.svg"onclick="gomuku(vd)">
+                <img alt="Logo" class="pic fixed-top" id="qing" src="./pic/QingTaiko2.svg" onclick="gomuku(vd)">
             -->
             <nav class=" navbar navbar-expand-md fixed-top navbar-dark" id="topbar">
-                <i class="navbar-brand"></i>
-                <img class="navbar-brand" src="./pic/Logo.svg" style="width: 5%;">
+                <img class="navbar-brand "src="./pic/Logo.svg" style="width: 10%;" onclick="gomuku(vd)">
+                <!--
+                    <i class="navbar-brand"></i>
+                -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-nav" id="menu">
                     <div class="container no-padding">
                         <i class="fas fa-bars"></i>
@@ -42,7 +44,7 @@
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link" onclick="gomuku(L3)">Link2</a>
+                                <a class="nav-link" onclick="gomuku(L3)">創立理念</a>
                             </li>
                             
                             <li class="nav-item">
@@ -56,42 +58,43 @@
 <!------------------------------------------------------------------------------------------------------------->
 <i class="fas fa-3x fa-arrow-alt-circle-up" id="gotop" onclick="gomuku(vd)"></i>
 <!------------------------------------------------------------------------------------------------------------->
-        <video autoplay playsinline muted loop class="fsc" id="vd" onplay="bgplay()">
+        <video autoplay playsinline muted loop class="fsc" id="vd" onplay="bgplay()" style="margin-bottom: 0cm;">
             <source src="https://img.notorious-2019.com/59304eac8788af18784a5d87.mp4" type="video/mp4">
         </video>
 <!------------------------------------------------------------------------------------------------------------->
+    <div>
         <div class="container news xyz row" id="News" data-aos="fade-right">
             <h1>News</h1>
-                <div class="news">
-                    <ul >
-                        <li class="news-content">
-                            <a class="new" href="#" >News 1</a>
-                        </li>
-                        <li class="news-content">
-                            <a href="#">News 2</a>
-                        </li>
-                    </ul>
-                    
-                </div>
+            <div class="news">
+                <ul >
+                    <li class="news-content">
+                        <a class="new" href="#" >News 1</a>
+                    </li>
+                    <li class="news-content">
+                        <a href="#">News 2</a>
+                    </li>
+                </ul> 
             </div>
         </div>
+    </div>
+
 <!------------------------------------------------------------------------------------------------------------->
     <div style="background-color: rgba(116, 78, 78, 0.068);" id="L2"> 
         <div class="container xyz row" id="About" data-aos="fade-right" >
-            <h1>About Us</h1>
+            <h1>關於我們</h1>
             <div class="content">
-                <p>Qing Taiko is established in 2019.We are some people who interesting in taiko established</p>
-                <p>At the first we just have 10 pcs of taiko but now. we have more than 10</p>
-                <p>And also we have enthusiasm. If you also interesting in taiko.</p>
-                <p>We are glad you join us </p>
-                <p style="float: right;">2020.9.4</p>
+                <p><span style="font-size: 1.8em;">擎</span>太鼓創立於2019年5月，由14個對太鼓有熱情的人所創立的，草創時四處漂泊，沒有固定的練習地點，
+                    猶如一支風雨飄緲中搖擺的小草。我們在途中遭遇許多挫折，沒有場地用被無數次驅趕，以及團員的退出
+                    但是我們沒有放棄，在將來的某天那風雨飄渺中搖晃的小草終將成為一顆擎天大樹。</p>
+                <br/>
+                <p style="float: right;">2020.Sep.7th</p>
             </div>
         </div>
     </div>
 <!------------------------------------------------------------------------------------------------------------->
     <div style="background-color: rgba(85, 59, 59, 0.116);" id="L3">
         <div class="container xyz row" id="Link2" data-aos="fade-right">
-            <h1>Link2</h1>
+            <h1>創立理念</h1>
             <div class="content">
                 
             </div>
@@ -100,15 +103,22 @@
 <!------------------------------------------------------------------------------------------------------------->
     <div style="background-color: rgba(35, 152, 199, 0.185);" id="L4">
         <div class="container xyz row" id="Contact" data-aos="fade-right">
-            <h1>Contact Us</h1>
+            <h1>聯絡我們</h1>
             <div class="content">
                 
             </div>
         </div>
     </div>
-    <!------------------------------------------------------------------------------------------------------------
-        <div class="container" style="height: 10cm;"></div>
------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------->
+    <div style="background-color: rgba(138, 106, 160, 0.295);" id="L5">
+        <div class="container xyz row" id="Contact" data-aos="fade-right">
+            <h1></h1>
+            <div class="content">
+                
+            </div>
+        </div>
+    </div>
+<!------------------------------------------------------------------------------------------------------------->
 <footer>© 2020 擎太鼓 ALL RIGHTS RESERVED.</footer>
 <!------------------------------------------------------------------------------------------------------------->
         <script src="./fontawsome/js/all.min.js"></script>

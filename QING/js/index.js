@@ -7,7 +7,7 @@ function barblack()
 {
     let bar=document.getElementById("topbar");
     const barblack =vd.clientHeight;
-    if(window.scrollY > barblack)
+    if(window.scrollY > barblack-65)
     {
         bar.classList.add("bg-dark");
     }
