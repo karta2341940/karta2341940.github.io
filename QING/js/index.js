@@ -62,4 +62,4 @@ window.addEventListener("scroll",barblack);
 
 
 console.log("Version : 1.1.1");
-console.log("Changed : 55px");
+console.log("Changed : Logo");
