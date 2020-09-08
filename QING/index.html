@@ -9,7 +9,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="./js/index.js"></script>
-        <link rel="icon" href="../favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="./fontawsome/css/all.min.css">
@@ -24,11 +24,14 @@
                 <img alt="Logo" class="pic fixed-top" id="qing" src="./pic/QingTaiko2.svg" onclick="gomuku(vd)">
             -->
             <nav class=" navbar navbar-expand-md fixed-top navbar-dark" id="topbar">
-                <img class="navbar-brand"src="./pic/Logo.svg" style="width: 9%;" id="qtk" onclick="gomuku(vd)">
+
+                <img class="navbar-brand"src="./pic/Logo.svg" id="qtk" onclick="gomuku(vd)">
+
                 <!--
                     <i class="navbar-brand"></i>
                 -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-nav" id="menu">
+
                     <div class="container no-padding">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -57,7 +60,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <i class="fas fa-3x fa-arrow-alt-circle-up" id="gotop" onclick="gomuku(vd)"></i>
 <!------------------------------------------------------------------------------------------------------------->
-        <video autoplay playsinline muted loop class="fsc" id="vd" onplay="bgplay()" style="margin-bottom: 0cm;">
+        <video autoplay playsinline muted loop class="fsc" id="vd" onplay="bgplay()" style="margin-bottom: -6px;">
             <source src="https://img.notorious-2019.com/59304eac8788af18784a5d87.mp4" type="video/mp4">
         </video>
 <!------------------------------------------------------------------------------------------------------------->
@@ -76,7 +79,6 @@
             </div>
         </div>
     </div>
-
 <!------------------------------------------------------------------------------------------------------------->
     <div style="background-color: rgba(116, 78, 78, 0.068);" id="L2"> 
         <div class="container xyz row" id="About" data-aos="fade-right" >
