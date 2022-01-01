@@ -1,14 +1,251 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Qing Taiko official page</title>
-        <meta name="description" content="Qing taiko official web">
-        <script>
-            document.location.href="./QING"
-        </script>
-    </head>
 
-    <body>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: rgba(168, 162, 162, 0.726);
+        }
 
-    </body>
+        .icon-img {
+            border-radius: 100px;
+
+        }
+
+        .mxd {
+            display: block;
+            margin-top: 3em;
+        }
+
+        .mxd .content {
+            font-size: 1.25em;
+        }
+
+        .row-center {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .link {
+            text-decoration: none;
+            color: rgb(90, 87, 87);
+            -moz-transition: color 0.5s;
+            -o-transition: color 0.5s;
+            transition: color 0.5s;
+        }
+
+        .link:hover {
+            color: rgb(101, 183, 255);
+            -moz-transition: color 0.5s;
+            -o-transition: color 0.5s;
+            transition: color 0.5s;
+        }
+
+        .content {
+            margin-top: 1em;
+        }
+
+        .skill {
+            list-style: none;
+            padding-left: 0.5em;
+        }
+
+        .progress {
+            border-radius: 1.5em;
+            width: 30em;
+            height: 0.7em;
+        }
+
+        ul.timeline {
+            list-style-type: none;
+            position: relative;
+        }
+
+        ul.timeline:before {
+            content: ' ';
+            background: #d4d9df;
+            display: inline-block;
+            position: absolute;
+            margin-top: 0.2em;
+            left: 28px;
+            width: 4px;
+            height: 100%;
+            z-index: 400;
+        }
+
+        ul.timeline>li {
+            margin: 20px 0;
+            padding-left: 1.5em;
+            padding-right: 20px;
+        }
+
+        ul.timeline>li:before {
+            content: ' ';
+            background: white;
+            display: inline-block;
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid #22c0e8;
+            margin-top: 0.2em;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            z-index: 400;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container border p-5 mxd">
+        <div class="row-center">
+            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHdOhJ9amJW3A/profile-displayphoto-shrink_200_200/0/1603767951346?e=1646265600&v=beta&t=MIyMqM2lK7k5LlMG_Mcv2dbml8ejMEwDLEchTqhUgbw"
+                class="icon-img" />
+        </div>
+        <h2 class="row-center">Du Meng-Xian (杜孟憲)</h2>
+        <h5 class="row-center"><i class="bi bi-geo-alt-fill">Kaohsiung Taiwan</i></h5>
+        <p class="row-center">21 Years old</p>
+    </div>
+    <div class="container border-top border-bottom p-4 mxd ">
+        <h1 class="text-center">Introduction</h1>
+        <p class="content">
+            Hi , I am Meng-Xian,Du. Now studying at <a class="link" href="https://www.nptu.edu.tw/index.php">National
+                Pingtung University</a> and work at the Computer and Network Center here for 2 years . My responsibility
+            is to maintain some pages of school's website and provide
+            resolution for my supervisor. Also I have use HTML and CSS more than 3 years. When I was 16 , I use CentOS
+            to learning the knowleges of maintain a server for 3 years
+            and at the same time I learning how to use Adobe illustrator. So I do some icon for my website sometimes.
+        </p>
+    </div>
+    <div class="container mxd" style="padding: 2em 0em;">
+        <div class="row" style="margin-right: 0em;">
+
+            <div class="col-6 ">
+                <h1>Experience</h1>
+                <ul class="timeline">
+                    <li>
+                        <div class="row">
+                            <h4 class="col-6">Test1</h4>
+                            <h5 class="timeline-date col-6">Date</h5>
+                        </div>
+                        <p>Test content1</p>
+                    </li>
+
+                    <li>
+                        <div class="row">
+                            <h4 class="col-6">Test2</h4>
+                            <h5 class="timeline-date col-6">Date</h5>
+                        </div>
+                        <p>Test content2</p>
+                    </li>
+
+                    <li>
+                        <div class="row">
+                            <h4 class="col-6">Test3</h4>
+                            <h5 class="timeline-date col-6">Date</h5>
+                        </div>
+                        <p>Test content3</p>
+                    </li>
+
+                    <li>
+                        <div class="row">
+                            <h4 class="col-6">Test4</h4>
+                            <h5 class="timeline-date col-6">Date</h5>
+                        </div>
+                        <p>Test content3</p>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col-6">
+                <h1>Skill</h1>
+                <ul class="skill">
+
+                    <li>Adobe illustrator</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 68%; background-color: rgb(116, 255, 162);" aria-valuenow="68"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>HTML</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 80%; background-color: rgb(107, 183, 255);" aria-valuenow="80"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>CSS</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 75%; background-color: rgb(170, 104, 255);" aria-valuenow="75"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>JavaScript</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 70%; background-color: rgb(255, 157, 100);" aria-valuenow="70"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>Node js</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 50%; background-color: rgb(255, 107, 144);" aria-valuenow="50"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>C/C++</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 60%; background-color: rgb(115, 190, 255);" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>Java</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 60%; background-color: rgb(131, 84, 170);" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>Docker</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 25%; background-color: rgb(218, 147, 191);" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <li>Git</li>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: 60%; background-color: rgb(143, 216, 155);" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
 </html>
