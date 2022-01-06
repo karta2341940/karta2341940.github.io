@@ -34,14 +34,18 @@ bar=()
 
 
 fig = plt.Figure(figsize = (6,6),dpi =100)
-roc_pic =fig.add_subplot(423)
+roc_pic =fig.add_subplot(211)
 roc_pic.set_title('ROC Curve')
+'''
 positive_pic = fig.add_subplot(424)
 positive_pic.set_title('Positive')
-mix_pic = fig.add_subplot(427)
+'''
+mix_pic = fig.add_subplot(212)
 mix_pic.set_title('Positive')
+'''
 negative_pic = fig.add_subplot(428)
 negative_pic.set_title('Positive')
+'''
 
 
 canvs = FigureCanvasTkAgg(fig,master = window)
@@ -79,10 +83,9 @@ def getMix(Data1,Data2):
         return Data1+Data2
 
 def clear():
-        roc_pic.clear()
-        positive_pic.clear()
+        roc_pic.clear()    
         mix_pic.clear()
-        negative_pic.clear()
+        
 
 def draw(mu):
         
@@ -113,11 +116,12 @@ def draw(mu):
         
         
 
-
         #Negative
+        '''
         n,bins,patch =negative_pic.hist( Data1 , num_bins ,facecolor = "blue",alpha = 0.3,density=True)
         y = norm.pdf( bins , 0 , 1 )
         negative_pic.plot(bins,y,"--",color ="blue")
+        '''
         
         #Mix
         n,bins,patch =mix_pic.hist( DataX , num_bins ,facecolor = "blue",alpha = 0.3,density=True)
@@ -126,11 +130,15 @@ def draw(mu):
         y2 = norm.pdf( bins , 0 , 1 )
         mix_pic.plot(bins,y,"--",color ="red")
         mix_pic.plot(bins,y2,"--",color ="blue")
+        mix_pic.axvline(mu, color="green", ls="solid")
         
         #Positive
+        '''
         n,bins,patch =positive_pic.hist( Data2 , num_bins ,facecolor = "red",alpha = 0.3,density=True)
         y = norm.pdf( bins , mu , 1 )
         positive_pic.plot(bins,y,"--",color ="red")
+        '''
+
         barFun(bar.get())
         canvs.draw()
         toolbar.update()
@@ -171,7 +179,7 @@ rocArea = Label(topFrame,textvariable=roc_val,text='ROC curve (area = %0.2f)' % 
 sen = Label(topFrame,textvariable=sen_val,text="Sensitivity:TP/(TP+FN)=%0.2f" %tprv)
 spe = Label(topFrame,textvariable=spe_val,text="Specificity:TN/(TN+FP)=%0.2f" %fprv)
 #Standard Deviation Bar
-sd = Scale(topFrame, from_=-10,to=10,orient="horizontal",command=run,label="標準差" )
+sd = Scale(topFrame, from_=-10,to=10,orient="horizontal",command=run,label="Muuu" )
 bar = Scale(topFrame, from_=0,to=barMax,orient="horizontal",command=barFun,label="Bar")
 
 sen.pack(side=LEFT)
