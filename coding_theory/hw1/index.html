@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link href="./css/index.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -13,13 +14,15 @@
     <div id="mount-point">
         <div class="container">
             <div class="row">
-                <input type="text" placeholder="Please input 10 symbols(Include space)" v-model.value="inputValue" @input="inputDetect">
+                <input class="symbol_input" type="text" placeholder="Please input 10 symbols(Include space)" v-model.value="inputValue" @input="inputDetect">
             </div>
             <div class="row">
+                <label class="col-2">Symbol</label>
                 <input v-for="i in 10" class="col-1" type="text" v-model.value="inputValue[i-1]" readonly >
             </div>
             <div class="row">
-                <input v-for="i in 10" class="col-1" type="text" v-model.value="inputValue[i-1]" >
+                <label class="col-2">機率(%)</label>
+                <input v-for="i in 10" class="col-1" type="text" v-model.value="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)" >
             </div>
         </div>
     </div>
