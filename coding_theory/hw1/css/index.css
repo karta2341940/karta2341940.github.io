@@ -1,3 +1,12 @@
-.symbol_input{
-    
+.executeBox1,.example{
+    margin-top: 20px;
+    padding: 50px !important;
+    background-color: rgb(225, 241, 255);
+    border-radius: 10px;
+}
+.executeBox1 .row{
+    margin-top: 20px;
+}
+.input-field{
+    text-align: center;
 }

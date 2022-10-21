@@ -7,26 +7,95 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="./js/vue.global.prod.js"></script>
-    
+
 </head>
 
 <body>
     <div id="mount-point">
         <div class="container">
-            <div class="row">
-                <input class="symbol_input" type="text" placeholder="Please input 10 symbols(Include space)" v-model.value="inputValue" @input="inputDetect">
+            <div class="executeBox1">
+
+                <div class="input-group mb-3">
+                    <label class="col-2">Preview/Radix : </label>
+                    <input class="form-control col-8" type="text" placeholder="Preview Input Symbol Sets"
+                    v-model.value="inputValue" readonly>
+                    <input class="col-1 input-field" type="text" placeholder="Radix" style="border:1px solid #ced4da "
+                    v-model.value="radix">
+              
+                        <button class="btn btn-light col-1 btn-outline-primary" @click="runHuffMan()">執行</button>
+                   
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">Symbols : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                        v-model.value="inputValue[i-1]" :placeholder=" '符號' + [[i]] " @input="inputDetect">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">Huffman code : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field" type="text"readonly>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">機率(%) : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                        v-model="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)"
+                        :placeholder=" '機率' + [[i]] ">
+                </div>
+
             </div>
-            <div class="row">
-                <label class="col-2">Symbol</label>
-                <input v-for="i in 10" class="col-1" type="text" v-model.value="inputValue[i-1]" readonly >
+            <br>
+            <p>
+            <h1>使用說明</h1>
+            在"Symbols"的地方輸入欲轉成Huffman Code的內容，
+            並在機率的部分逐一填入相對應的出現機率以下為示範內容：
+            </p>
+            <div class="example">
+
+                <div class="input-group mb-3">
+                    <label class="col-2">Preview : </label>
+                    <input class="form-control" type="text" placeholder="Preview Input Symbol Sets"
+                        v-model.value="exampleSetV" readonly>
+                    <div class="btn btn-light btn-outline-primary">執行</div>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">Symbols : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                        v-model.value="exampleSetV[i-1]">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">Huffman code : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                        v-model.value="inputValue[i-1]" @input="inputDetect" readonly>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">機率(%) : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                        v-model.value='exampleSetP[i-1]'>
+                </div>
             </div>
+            <br>
+            <h1>作業內容</h1>
+            <p>
+
+                請各位同學設計程式，實作一個霍夫曼編碼的程式，讓使用者最多能夠設定10個符號以及機率(機率和要等於1)﹐<br>
+                然後產生每個符號的對應編碼值並且計算該信息源的entropy以及平均編碼長度。 繳交內容包括: <br>
+
+                1. 程式碼以及相關程式說明 <br>
+                2. 執行結果與理論推導是否正確(至少五種不同的符號分布情形) <br>
+                3. 如果有利用到網站上面提供的部分程式碼，請在文件上面做說明 <br>
+                4. 如果還有用到進階的技術(例如能夠考量當時的輸入符號數目自動以虛擬符號產生更佳的解等等)請在文件上面做說明 <br>
+                5. 另外要上傳執行檔案(exe)以及說明文件(readme)告訴老師要如何執行
+            </p>
             <div class="row">
-                <label class="col-2">機率(%)</label>
-                <input v-for="i in 10" class="col-1" type="text" v-model.value="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)" >
+                <p>
+                    FrontEnd Framework : <a href="https://vuejs.org/">Vue.js</a>、<a
+                        href="https://getbootstrap.com/">Bootstrap</a>
+                    BackEnd : <a href="https://www.github.com">Github</a>
+                </p>
             </div>
         </div>
     </div>
 </body>
 
 <script src="./js/index.js"></script>
+
 </html>
