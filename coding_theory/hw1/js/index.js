@@ -46,6 +46,10 @@ const page = {
              * 00 => 0
              * 02 => 2
              */
+            if(Number(this.inputProbability[indexNow]) < 0){
+                alert("機率不可小於0");
+                this.inputProbability[indexNow] = 0;
+            }
             if (String(this.inputProbability[indexNow][0]) == '0' && String(this.inputProbability[indexNow]).length > 1) {
                 this.inputProbability[indexNow]= String(this.inputProbability[indexNow]).substring(1,2)
             }
