@@ -4,13 +4,14 @@ const page = {
     data() {
         return {
             data: "Hello World",
-            inputValue: [1,2,3,4,5],
-            inputProbability: [10,20,30,20,20],
+            inputValue: [0, 1, 2, 3, 4],
+            inputProbability: [10, 20, 30, 20, 20],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
             exampleSetP: ['20', '20', '20', '20', '20'], // 示範用的input Probability
             temp: "",
             table: [],
-            radix:2,
+            records: [],
+            radix: '',
         }
     },
     async created() {
@@ -78,7 +79,6 @@ const page = {
                 else {
                     temp = Number(temp + value);
                 }
-
             }
         },
         /**
@@ -86,9 +86,7 @@ const page = {
          * @param {String} value 
          */
         probabilityClick(value) {
-
             if (this.inputProbability[value] == 0) {
-
                 this.inputProbability.forEach((value, index) => {
 
                     if (value == 0) {
@@ -96,51 +94,99 @@ const page = {
                     }
                 });
                 this.inputProbability[value] = '';
-
             }
-
+        },
+        radixInput() {
+            if (this.radix == '') {
+                return;
+            }
+            if (this.radix < 2) {
+                this.radix = 2;
+                alert("Radix can't less than 2");
+                return;
+            }
+            if (this.radix > this.inputValue.length) {
+                this.radix = this.inputValue.length;
+                alert("Radix can't large than total of symbol");
+                return;
+            }
         },
         /**
          * 開始執行Huffman的編碼
          */
         runHuffMan() {
+            this.table=[];
+            this.records=[];
             // To check whether the number is less than 100%
             {
                 let tempP = 0;
-                for (let i of this.inputProbability){
-                    tempP +=Number(i);
+                for (let i of this.inputProbability) {
+                    tempP += Number(i);
                 }
-                if(tempP < 100){
+                if (tempP < 100) {
                     alert("機率和要等於100%");
                     return;
                 }
-                else console.log("ok")
-                console.log(tempP)
+                else console.log("Data is Ok it can be encode");
             }
             // 將value跟probability存入table中
-            let temp = [];
+            let tempTable = [];
+            this.table[this.table.length == 0 ? this.table.length : this.table.length - 1] = new Array()
             for (let i in this.inputValue) {
-                temp.push({
+                this.table[this.table.length == 0 ? this.table.length : this.table.length - 1].push({
                     'value': this.inputValue[i],
                     'probability': Number(this.inputProbability[i]),
-                    'length': 0,
-                    'code': ''
+                })
+                tempTable.push({
+                    'value': this.inputValue[i],
+                    'probability': Number(this.inputProbability[i]),
                 })
             }
-            // 將結果排序
-            temp.sort((a,b)=>{
-                if(a.probability > b.probability ) return -1;
-                if(a.probability < b.probability ) return 1;
+            this.table[0].sort((a, b) => {
+                if (a.probability > b.probability) return -1;
+                if (a.probability < b.probability) return 1;
                 return 0;
             })
-            this.table = temp;
-            console.log(this.table)
+            // 將結果排序
+            tempTable.sort((a, b) => {
+                if (a.probability > b.probability) return -1;
+                if (a.probability < b.probability) return 1;
+                return 0;
+            })
+            this.huffman(tempTable);
+            //console.log(tempTable)
+            console.log("this.table : ", this.table)
+        },
+        /**
+         * 執行Huffman編碼
+         * @param {Array} Array 要處裡的Symbol set
+         * @param {Number} radix - 基底數。用以決定huffman code在產生時以多少個Symbol為一組相加
+         * @return {Array}
+         */
+        huffman(array = [{ 'value': String(), 'probability': Number() }], radix = 2) {
+            if (radix < 2) radix = 2;
+            if (radix > array.length) radix = array.length;
+            if (array.length == 2) return;
+            let temp = {
+                "value":'',
+                "probability":0
+            };
+            // 初始化 this.records
+            this.records[this.records.length - 1 < 0 ? this.records.length : this.records.length - 1] = new Array()
+            for (let i = array.length - 1; i > array.length - radix - 1; i--) {
+                temp.probability += array[i].probability;
+                temp.value+=array[i].value;
+                // 將機率最小的Radix組數據按照順序存入this.records
+                this.records[this.records.length - 1].unshift(array[i]);
+            }
+            for (let i = 0; i < radix; i++) array.pop()
 
-
+            
+            console.log("Records :", this.records)
+            return new Array();
         }
     },
 }
-
 
 Vue.createApp(page).mount("#mount-point");
 
