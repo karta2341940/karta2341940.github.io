@@ -39,29 +39,29 @@ const page = {
             */
             //this.inputProbability = new Array();
             for (let i = 0; i < this.inputValue.length; i++) {
-                            /*                                             
+                /*                                             
 8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
-      8 8888       8 8888          .`8888:' `88.       8 8888         
-      8 8888       8 8888          8.`8888.   Y8       8 8888         
-      8 8888       8 8888          `8.`8888.           8 8888         
-      8 8888       8 888888888888   `8.`8888.          8 8888         
-      8 8888       8 8888            `8.`8888.         8 8888         
-      8 8888       8 8888             `8.`8888.        8 8888         
-      8 8888       8 8888         8b   `8.`8888.       8 8888         
-      8 8888       8 8888         `8b.  ;8.`8888       8 8888         
-      8 8888       8 888888888888  `Y8888P ,88P'       8 8888         
-                                                                      
-    ,o888888o.     b.             8 8 8888         `8.`8888.      ,8' 
- . 8888     `88.   888o.          8 8 8888          `8.`8888.    ,8'  
+8 8888       8 8888          .`8888:' `88.       8 8888         
+8 8888       8 8888          8.`8888.   Y8       8 8888         
+8 8888       8 8888          `8.`8888.           8 8888         
+8 8888       8 888888888888   `8.`8888.          8 8888         
+8 8888       8 8888            `8.`8888.         8 8888         
+8 8888       8 8888             `8.`8888.        8 8888         
+8 8888       8 8888         8b   `8.`8888.       8 8888         
+8 8888       8 8888         `8b.  ;8.`8888       8 8888         
+8 8888       8 888888888888  `Y8888P ,88P'       8 8888         
+                                                          
+,o888888o.     b.             8 8 8888         `8.`8888.      ,8' 
+. 8888     `88.   888o.          8 8 8888          `8.`8888.    ,8'  
 ,8 8888       `8b  Y88888o.       8 8 8888           `8.`8888.  ,8'   
 88 8888        `8b .`Y888888o.    8 8 8888            `8.`8888.,8'    
 88 8888         88 8o. `Y888888o. 8 8 8888             `8.`88888'     
 88 8888         88 8`Y8o. `Y88888o8 8 8888              `8. 8888      
 88 8888        ,8P 8   `Y8o. `Y8888 8 8888               `8 8888      
 `8 8888       ,8P  8      `Y8o. `Y8 8 8888                8 8888      
- ` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
-    `8888888P'     8            `Yo 8 888888888888        8 8888      
-            */
+` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
+`8888888P'     8            `Yo 8 888888888888        8 8888      
+*/
                 //this.inputProbability[i] = 0;
             }
             this.temp = this.inputValue
@@ -112,7 +112,7 @@ const page = {
             }
             // ----------------------------SECTION END----------------------------
             // To remove the empty string data from inputValue array.
-            if (this.inputValue[notNull + 1] == '') this.inputValue.pop(); 
+            if (this.inputValue[notNull + 1] == '') this.inputValue.pop();
             if (this.inputValue.length <= 10) {
                 // 自動為相對應機率的空格補0
                 this.inputProbability = new Array();
@@ -197,6 +197,7 @@ const page = {
          */
         runHuffMan() {
             console.clear()
+            // Detect repeat symbol
             let symbolInput = document.querySelectorAll('.symbol-Input');
             let notNull = 0;
             symbolInput.forEach((v, i) => { if (v.value) notNull = i });
@@ -206,6 +207,25 @@ const page = {
                     alert(`yOu CaN nOT inPUT eMPTy StrInG`)
                     return;
                 }
+            }
+            let repeat = this.inputValue.filter((v, i, a) => a.indexOf(v) !== i);
+            if (repeat.length) {
+                this.inputValue=[];
+                this.inputProbability=[];
+                let symbolInput = document.querySelectorAll('.symbol-Input');
+                let probabilityInput = document.querySelectorAll('.probability-Input');
+                notNull=0;
+                for (let i = 0; i < symbolInput.length; i++) {
+                    symbolInput[i].readOnly = false;
+                    probabilityInput[i].readOnly = false;
+                }
+                Number(notNull) == 0 ? notNull = -1 : notNull
+                for (let i = notNull + 2; i < symbolInput.length; i++) {
+                    symbolInput[i].readOnly = true;
+                    probabilityInput[i].readOnly = true;
+                }
+                
+                return alert("Don't input repeat symbol")
             }
             // To initialized the table and records array
             this.table = [];
@@ -299,8 +319,8 @@ const page = {
          * this function is to parsing array
          * @param {Array} array 
          */
-        parsing(array = new Array()){
-            
+        parsing(array = new Array()) {
+
         }
     },
 }
