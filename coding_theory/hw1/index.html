@@ -23,17 +23,16 @@
                 <div class="input-group mb-3" vue-on:loaded="loaded">
                     <label class="col-2">Symbols : </label>
                     <input v-for="i in 10" class="col-1 form-control input-field symbol-Input" type="text"
-                        v-model.value="inputValue[i-1]" :placeholder=" '符號' + [[i]] " @input="inputDetect">
+                        v-model.value="inputValue[i-1]" @input="inputDetect">
                 </div>
                 <div class="input-group mb-3">
                     <label class="col-2">Huffman code : </label>
-                    <input v-for="i in 10" class="col-1 form-control input-field" type="text" readonly>
+                    <input v-for="i in 10" class="col-1 form-control input-field code" type="text" readonly>
                 </div>
                 <div class="input-group mb-3">
                     <label class="col-2">機率(%) : </label>
                     <input v-for="i in 10" class="col-1 form-control input-field probability-Input" type="text"
-                    v-model="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)"
-                    :placeholder=" '機率' + [[i]] ">
+                    v-model="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)">
                 </div>
                 <div class="input-group mb-3">
                     <label class="col-2">Radix : </label>

@@ -264,6 +264,19 @@ const page = {
                 return 0;
             })
             this.huffman(tempTable);
+            let hCode = document.querySelectorAll('.code');
+            let symbol = document.querySelectorAll('input.symbol-Input');
+            symbol.forEach((v,i,a)=>{
+                console.log(v.value)
+                let result = this.records.filter((e)=> e.value == v.value)
+                try{
+                    console.log(result[0].code)
+                    hCode[i].value = result[0].code
+                }catch(err){
+
+                }
+                
+            });
             //console.log("this.table : ", this.table)
         },
         /**
@@ -303,6 +316,7 @@ const page = {
             }
             if (array.length == radix) return this.parsing(this.table, radix, array.length);
             else this.huffman(array, radix);
+
         },
         /**
          * this function is to parsing array
@@ -326,8 +340,8 @@ const page = {
             })
             //})
             this.records.sort((a, b) => {
-                if (a.value > b.value) return -1;
-                if (a.value < b.value) return 1;
+                if (a.value > b.value) return 1;
+                if (a.value < b.value) return -1;
                 return 0;
             })
             console.log(this.records);
