@@ -10,7 +10,7 @@ const page = {
             table: [],
             records: [],
             radix: '',
-            sw:false,
+            sw: false,
         }
     },
     async created() {
@@ -102,11 +102,10 @@ const page = {
             let probabilityInput = document.querySelectorAll('.probability-Input');
             let notNull = 0;
             symbolInput.forEach((v, i) => { if (v.value) notNull = i });
-            if(this.sw)
-            {
+            if (this.sw) {
                 notNull = nullNumber;
                 console.log("Hi")
-            } 
+            }
             for (let i = 0; i < symbolInput.length; i++) {
                 symbolInput[i].readOnly = false;
                 probabilityInput[i].readOnly = false;
@@ -217,8 +216,8 @@ const page = {
             }
             let repeat = this.inputValue.filter((v, i, a) => a.indexOf(v) !== i);
             if (repeat.length) {
-                this.inputValue=[];
-                this.inputProbability=[];
+                this.inputValue = [];
+                this.inputProbability = [];
                 this.sw = true;
                 this.inputDetect(0);
                 return alert("Don't input repeat symbol")
@@ -304,21 +303,25 @@ const page = {
             for (let i of array) {
                 this.table[this.table.length - 1].push(i)
             }
-
-
-            //this.table[this.table.length].push(array)
-            console.log('--------------------------')
-            if (array.length == radix) return this.parsing(this.table);
+            if (array.length == radix) return this.parsing(this.table, radix, array.length);
             else this.huffman(array, radix);
         },
         /**
          * this function is to parsing array
          * @param {Array} array 
          */
-        parsing(array = new Array()) {
-
+        parsing(ary = [], radix = 2) {
+            let array = objectCopy(ary)
+            console.log(array)
         }
     },
+}
+/**
+ * To deep clone the Object (include array) to a new Object
+ * This function will not return reference
+ */
+function objectCopy(array=[]){
+    return JSON.parse(JSON.stringify(array));
 }
 
 Vue.createApp(page).mount("#mount-point");
