@@ -10,6 +10,7 @@ const page = {
             table: [],
             records: [],
             radix: '',
+            sw:false,
         }
     },
     async created() {
@@ -92,7 +93,7 @@ const page = {
          * 偵測Symbols 是否超過10個
          * 並且偵測輸入的Symbol有多少個根據其個數填補0於機率欄
          */
-        inputDetect() {
+        inputDetect(nullNumber) {
             // ----------------------------SECTION----------------------------
             /*
              * The function of this section is to make the input-field turn into read-only
@@ -101,6 +102,11 @@ const page = {
             let probabilityInput = document.querySelectorAll('.probability-Input');
             let notNull = 0;
             symbolInput.forEach((v, i) => { if (v.value) notNull = i });
+            if(this.sw)
+            {
+                notNull = nullNumber;
+                console.log("Hi")
+            } 
             for (let i = 0; i < symbolInput.length; i++) {
                 symbolInput[i].readOnly = false;
                 probabilityInput[i].readOnly = false;
@@ -127,6 +133,7 @@ const page = {
                 this.inputValue = this.temp
                 alert("You can only input 10 symbols")
             }
+            this.sw = false;
         },
         /**
          * 偵測輸入的機率是否超過100%
@@ -212,19 +219,8 @@ const page = {
             if (repeat.length) {
                 this.inputValue=[];
                 this.inputProbability=[];
-                let symbolInput = document.querySelectorAll('.symbol-Input');
-                let probabilityInput = document.querySelectorAll('.probability-Input');
-                notNull=0;
-                for (let i = 0; i < symbolInput.length; i++) {
-                    symbolInput[i].readOnly = false;
-                    probabilityInput[i].readOnly = false;
-                }
-                Number(notNull) == 0 ? notNull = -1 : notNull
-                for (let i = notNull + 2; i < symbolInput.length; i++) {
-                    symbolInput[i].readOnly = true;
-                    probabilityInput[i].readOnly = true;
-                }
-                
+                this.sw = true;
+                this.inputDetect(0);
                 return alert("Don't input repeat symbol")
             }
             // To initialized the table and records array
