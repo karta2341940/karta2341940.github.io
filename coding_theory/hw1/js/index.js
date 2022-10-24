@@ -2,8 +2,8 @@ const page = {
     data() {
         return {
             data: "Hello World",
-            inputValue: ['0', '1', '2', '3', '4'],
-            inputProbability: [10, 20, 30, 20, 20],
+            inputValue: ['1', '2', '3', '4', '5','6'],
+            inputProbability: [5,8,15,15,27,30],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
             exampleSetP: ['20', '20', '20', '20', '20'], // 示範用的input Probability
             temp: "",
@@ -42,26 +42,26 @@ const page = {
             for (let i = 0; i < this.inputValue.length; i++) {
                 /*                                             
 8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
-8 8888       8 8888          .`8888:' `88.       8 8888         
-8 8888       8 8888          8.`8888.   Y8       8 8888         
-8 8888       8 8888          `8.`8888.           8 8888         
-8 8888       8 888888888888   `8.`8888.          8 8888         
-8 8888       8 8888            `8.`8888.         8 8888         
-8 8888       8 8888             `8.`8888.        8 8888         
-8 8888       8 8888         8b   `8.`8888.       8 8888         
-8 8888       8 8888         `8b.  ;8.`8888       8 8888         
-8 8888       8 888888888888  `Y8888P ,88P'       8 8888         
-                                                          
-,o888888o.     b.             8 8 8888         `8.`8888.      ,8' 
-. 8888     `88.   888o.          8 8 8888          `8.`8888.    ,8'  
+      8 8888       8 8888          .`8888:' `88.       8 8888         
+      8 8888       8 8888          8.`8888.   Y8       8 8888         
+      8 8888       8 8888          `8.`8888.           8 8888         
+      8 8888       8 888888888888   `8.`8888.          8 8888         
+      8 8888       8 8888            `8.`8888.         8 8888         
+      8 8888       8 8888             `8.`8888.        8 8888         
+      8 8888       8 8888         8b   `8.`8888.       8 8888         
+      8 8888       8 8888         `8b.  ;8.`8888       8 8888         
+      8 8888       8 888888888888  `Y8888P ,88P'       8 8888         
+                                                                      
+    ,o888888o.     b.             8 8 8888         `8.`8888.      ,8' 
+ . 8888     `88.   888o.          8 8 8888          `8.`8888.    ,8'  
 ,8 8888       `8b  Y88888o.       8 8 8888           `8.`8888.  ,8'   
 88 8888        `8b .`Y888888o.    8 8 8888            `8.`8888.,8'    
 88 8888         88 8o. `Y888888o. 8 8 8888             `8.`88888'     
 88 8888         88 8`Y8o. `Y88888o8 8 8888              `8. 8888      
 88 8888        ,8P 8   `Y8o. `Y8888 8 8888               `8 8888      
 `8 8888       ,8P  8      `Y8o. `Y8 8 8888                8 8888      
-` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
-`8888888P'     8            `Yo 8 888888888888        8 8888      
+ ` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
+    `8888888P'     8            `Yo 8 888888888888        8 8888      
 */
                 //this.inputProbability[i] = 0;
             }
@@ -244,10 +244,12 @@ const page = {
                 this.table[0].push({
                     'value': this.inputValue[i],
                     'probability': Number(this.inputProbability[i]),
+                    'code': ''
                 })
                 tempTable.push({
                     'value': this.inputValue[i],
                     'probability': Number(this.inputProbability[i]),
+                    'code': ''
                 })
             }
             this.table[0].sort((a, b) => {
@@ -262,7 +264,7 @@ const page = {
                 return 0;
             })
             this.huffman(tempTable);
-            console.log("this.table : ", this.table)
+            //console.log("this.table : ", this.table)
         },
         /**
          * 執行Huffman編碼
@@ -278,26 +280,22 @@ const page = {
                 "value": '',
                 "probability": 0,
                 'parent': [],
-
+                'code': ''
             };
-            // 初始化 this.records
-            this.records[this.records.length] = new Array()
             for (let i = array.length - 1; i > array.length - radix - 1; i--) {
                 temp.probability += array[i].probability;
                 temp.parent.unshift({
-                    'name': array[i].value,
-                    'probability': array[i].probability
+                    'value': array[i].value,
+                    'probability': array[i].probability,
+                    'parent': array[i].parent,
+                    'code': ''
                 });
-                // 將機率最小的Radix組數據按照順序存入this.records
-                this.records[this.records.length - 1].unshift(array[i]);
             }
-            //console.log("this.records", this.records)
             for (let i = 0; i < radix; i++) array.pop()
             array.push(temp);
             array.sort((a, b) => {
-                if (a.probability > b.probability) return -1;
+                if (a.probability >= b.probability) return -1;
                 if (a.probability < b.probability) return 1;
-                return 0;
             })
             this.table[this.table.length] = new Array();
             for (let i of array) {
@@ -311,8 +309,40 @@ const page = {
          * @param {Array} array 
          */
         parsing(ary = [], radix = 2) {
-            let array = objectCopy(ary)
-            console.log(array)
+            let array = [[{ 'value': '', 'probability': 0, 'code': '', 'parent': [] }]];
+            array = objectCopy(ary).reverse();
+            //array.forEach((value, index, array) => {
+
+            let haveParent = 0;
+            array[0].forEach((content, i, arr) => {
+                if (content.value == '' && content.code == '') {
+                    this.followRoute(content, i);
+                    haveParent++;
+                }
+                else {
+                    content.code = i;
+                    this.records.push(content);
+                }
+            })
+            //})
+            this.records.sort((a, b) => {
+                if (a.value > b.value) return -1;
+                if (a.value < b.value) return 1;
+                return 0;
+            })
+            console.log(this.records);
+        },
+        followRoute(content = { 'value': '', 'probability': 0, 'parent': [], 'code': '' }, index) {
+            content.code = index;
+            content.parent.forEach((v, i, a) => {
+                if (v.value == '' && v.code == '') {
+                    this.followRoute(v, String(index) + String(i));
+                }
+                else {
+                    v.code = String(index) + String(i);
+                    this.records.push(v);
+                }
+            });
         }
     },
 }
@@ -320,10 +350,11 @@ const page = {
  * To deep clone the Object (include array) to a new Object
  * This function will not return reference
  */
-function objectCopy(array=[]){
-    return JSON.parse(JSON.stringify(array));
+function objectCopy(array = []) {
+    let tmp = new Array();
+    tmp = JSON.parse(JSON.stringify(array));
+    return tmp;
 }
-
 Vue.createApp(page).mount("#mount-point");
 
 
