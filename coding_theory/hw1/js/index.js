@@ -3,8 +3,8 @@ const page = {
     data() {
         return {
             data: "Hello World",
-            inputValue: ['1', '2', '3', '4', '5', '6'],
-            inputProbability: [5, 8, 15, 15, 27, 30],
+            inputValue: ["我", "愛", "小海", "(空格)", "520",0],
+            inputProbability: [50,20,10,15,5,0],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
             exampleSetP: ['20', '20', '20', '20', '20'], // 示範用的input Probability
             temp: "",
@@ -44,6 +44,7 @@ const page = {
     `8888888P'     8            `Yo 8 888888888888        8 8888      
             */
             //this.inputProbability = new Array();
+            //this.inputValue = new Array();
             for (let i = 0; i < this.inputValue.length; i++) {
                 /*                                             
 8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
@@ -289,7 +290,7 @@ const page = {
                 }
 
             });
-            //console.log("this.table : ", this.table)
+            //console.log("this.table : ", this.records)
             // Set the Lav
             this.Lav = this.getLav(this.records);
             // Set the entropy
@@ -300,11 +301,12 @@ const page = {
             let lav = 0;
             for (let i of array) {
                 lav += i.probability * 0.01 * i.code.length;
+                //console.log(lav," Probability : ",i.probability," Length : ",i.code.length)
             }
             return lav;
         },
         getEntropy(array) {
-            console.log('hi')
+            //console.log('hi')
             let radix = Number(this.radix);
             radix == '' ? radix=2:radix
             array = objectCopy(array);
@@ -370,7 +372,7 @@ const page = {
                     haveParent++;
                 }
                 else {
-                    content.code = i;
+                    content.code = String(i);
                     this.records.push(content);
                 }
             })
