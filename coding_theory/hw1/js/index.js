@@ -3,8 +3,8 @@ const page = {
     data() {
         return {
             data: "Hello World",
-            inputValue: ["我", "愛", "小海", "(空格)", "520", 0],
-            inputProbability: [10, 20, 30, 40, 0, 0],
+            inputValue: [],
+            inputProbability: [],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
             exampleSetP: ['20', '20', '20', '20', '20'], // 示範用的input Probability
             temp: "",
@@ -20,55 +20,9 @@ const page = {
     async created() {
         this.persentage = arraySum(this.inputProbability);
         if (this.inputValue.length <= 10) {
-            /*                                             
-8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
-      8 8888       8 8888          .`8888:' `88.       8 8888         
-      8 8888       8 8888          8.`8888.   Y8       8 8888         
-      8 8888       8 8888          `8.`8888.           8 8888         
-      8 8888       8 888888888888   `8.`8888.          8 8888         
-      8 8888       8 8888            `8.`8888.         8 8888         
-      8 8888       8 8888             `8.`8888.        8 8888         
-      8 8888       8 8888         8b   `8.`8888.       8 8888         
-      8 8888       8 8888         `8b.  ;8.`8888       8 8888         
-      8 8888       8 888888888888  `Y8888P ,88P'       8 8888         
-                                                                      
-    ,o888888o.     b.             8 8 8888         `8.`8888.      ,8' 
- . 8888     `88.   888o.          8 8 8888          `8.`8888.    ,8'  
-,8 8888       `8b  Y88888o.       8 8 8888           `8.`8888.  ,8'   
-88 8888        `8b .`Y888888o.    8 8 8888            `8.`8888.,8'    
-88 8888         88 8o. `Y888888o. 8 8 8888             `8.`88888'     
-88 8888         88 8`Y8o. `Y88888o8 8 8888              `8. 8888      
-88 8888        ,8P 8   `Y8o. `Y8888 8 8888               `8 8888      
-`8 8888       ,8P  8      `Y8o. `Y8 8 8888                8 8888      
- ` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
-    `8888888P'     8            `Yo 8 888888888888        8 8888      
-            */
             this.inputProbability = new Array();
             this.inputValue = new Array();
             for (let i = 0; i < this.inputValue.length; i++) {
-                /*                                             
-8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
-      8 8888       8 8888          .`8888:' `88.       8 8888         
-      8 8888       8 8888          8.`8888.   Y8       8 8888         
-      8 8888       8 8888          `8.`8888.           8 8888         
-      8 8888       8 888888888888   `8.`8888.          8 8888         
-      8 8888       8 8888            `8.`8888.         8 8888         
-      8 8888       8 8888             `8.`8888.        8 8888         
-      8 8888       8 8888         8b   `8.`8888.       8 8888         
-      8 8888       8 8888         `8b.  ;8.`8888       8 8888         
-      8 8888       8 888888888888  `Y8888P ,88P'       8 8888         
-                                                                      
-    ,o888888o.     b.             8 8 8888         `8.`8888.      ,8' 
- . 8888     `88.   888o.          8 8 8888          `8.`8888.    ,8'  
-,8 8888       `8b  Y88888o.       8 8 8888           `8.`8888.  ,8'   
-88 8888        `8b .`Y888888o.    8 8 8888            `8.`8888.,8'    
-88 8888         88 8o. `Y888888o. 8 8 8888             `8.`88888'     
-88 8888         88 8`Y8o. `Y88888o8 8 8888              `8. 8888      
-88 8888        ,8P 8   `Y8o. `Y8888 8 8888               `8 8888      
-`8 8888       ,8P  8      `Y8o. `Y8 8 8888                8 8888      
- ` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
-    `8888888P'     8            `Yo 8 888888888888        8 8888      
-*/
                 this.inputProbability[i] = 0;
             }
             this.temp = this.inputValue
@@ -104,6 +58,7 @@ const page = {
             /*
              * The function of this section is to make the input-field turn into read-only
              */
+
             let symbolInput = document.querySelectorAll('.symbol-Input');
             let probabilityInput = document.querySelectorAll('.probability-Input');
             // Initial Huffman code field
@@ -120,7 +75,13 @@ const page = {
                 symbolInput[i].readOnly = false;
                 probabilityInput[i].readOnly = false;
             }
-            Number(notNull) == 0 ? notNull = -1 : notNull
+            if (this.inputValue[0] === '' && Number(notNull) == 0) {
+                notNull = -1;
+            }
+            else if (Number(notNull) == 0) {
+                notNull = 0;
+            }
+
             for (let i = notNull + 2; i < symbolInput.length; i++) {
                 symbolInput[i].readOnly = true;
                 probabilityInput[i].readOnly = true;
@@ -130,23 +91,19 @@ const page = {
             if (this.inputValue[notNull + 1] == '') this.inputValue.pop();
             // 自動為相對應機率的空格補0
             if (this.inputValue.length <= 10) {
-                let temp = objectCopy(this.inputProbability);
                 this.inputProbability = new Array();
-                this.inputProbability = temp;
-                this.inputProbability[this.inputValue.length-1]=0;
-                /*
                 for (let i in this.inputValue) {
                     if (this.inputValue[i] != undefined || this.inputValue[i] != null) {
                         this.inputProbability[i] = 0;
                     }
-                }*/
-
+                }
                 this.temp = this.inputValue
             }
             else {
                 this.inputValue = this.temp
                 alert("You can only input 10 symbols")
             }
+
             this.sw = false;
         },
         /**
@@ -282,22 +239,19 @@ const page = {
                 if (a.probability < b.probability) return 1;
                 return 0;
             })
-            console.log(this.table)
             this.huffman(tempTable);
             let hCode = document.querySelectorAll('.code');
             this.inputValue.forEach((v, i, a) => {
                 //console.log(v.value)
                 let result = this.records.filter((e) => e.value == v)
-                console.log(i)
                 try {
                     //console.log(result[0].code)
                     hCode[i].value = result[0].code
                 } catch (err) {
 
                 }
-
             });
-            console.log('End : ', this.records)
+            console.log(this.table)
             //console.log("this.table : ", this.records)
             // Set the Lav
             this.Lav = this.getLav(this.records);
@@ -342,6 +296,7 @@ const page = {
                 'code': ''
             };
             for (let i = array.length - 1; i > array.length - radix - 1; i--) {
+                console.log(i)
                 temp.probability += array[i].probability;
                 temp.parent.unshift({
                     'value': array[i].value,
@@ -394,7 +349,7 @@ const page = {
         followRoute(content = { 'value': '', 'probability': 0, 'parent': [], 'code': '' }, index) {
             content.code = index;
             let temp = objectCopy(this.records)
-            console.log("Temp : ", temp);
+            //console.log("Temp : ", temp);
             try {
 
                 content.parent.forEach((v, i, a) => {
