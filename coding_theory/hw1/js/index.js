@@ -2,8 +2,8 @@ const page = {
     data() {
         return {
             data: "Hello World",
-            inputValue: ['1', '2', '3', '4', '5','6'],
-            inputProbability: [5,8,15,15,27,30],
+            inputValue: ['1', '2', '3', '4', '5', '6'],
+            inputProbability: [5, 8, 15, 15, 27, 30],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
             exampleSetP: ['20', '20', '20', '20', '20'], // 示範用的input Probability
             temp: "",
@@ -11,9 +11,13 @@ const page = {
             records: [],
             radix: '',
             sw: false,
+            persentage: 0,
+            Lav: 0,
+            entropy: 0,
         }
     },
     async created() {
+        this.persentage = arraySum(this.inputProbability);
         if (this.inputValue.length <= 10) {
             /*                                             
 8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
@@ -86,7 +90,7 @@ const page = {
             symbolInput[i].readOnly = true;
             probabilityInput[i].readOnly = true;
         }
-        this.runHuffMan();
+        //this.runHuffMan();
     },
     methods: {
         /**
@@ -94,17 +98,23 @@ const page = {
          * 並且偵測輸入的Symbol有多少個根據其個數填補0於機率欄
          */
         inputDetect(nullNumber) {
+            this.persentage = arraySum(this.inputProbability);
             // ----------------------------SECTION----------------------------
             /*
              * The function of this section is to make the input-field turn into read-only
              */
             let symbolInput = document.querySelectorAll('.symbol-Input');
             let probabilityInput = document.querySelectorAll('.probability-Input');
+            // Initial Huffman code field
+            let huffman = document.querySelectorAll('.code');
+            for(let i of huffman){
+                i.value = '';
+            }
             let notNull = 0;
             symbolInput.forEach((v, i) => { if (v.value) notNull = i });
             if (this.sw) {
                 notNull = nullNumber;
-                console.log("Hi")
+                //console.log("Hi")
             }
             for (let i = 0; i < symbolInput.length; i++) {
                 symbolInput[i].readOnly = false;
@@ -140,6 +150,7 @@ const page = {
          * @param {Number} indexNow 
          */
         probabilityInput(indexNow) {
+            this.persentage = arraySum(this.inputProbability);
             let value = 0
             let temp = 0;
             /**
@@ -202,7 +213,7 @@ const page = {
          * 開始執行Huffman的編碼
          */
         runHuffMan() {
-            console.clear()
+            //console.clear()
             // Detect repeat symbol
             let symbolInput = document.querySelectorAll('.symbol-Input');
             let notNull = 0;
@@ -266,18 +277,43 @@ const page = {
             this.huffman(tempTable);
             let hCode = document.querySelectorAll('.code');
             let symbol = document.querySelectorAll('input.symbol-Input');
-            symbol.forEach((v,i,a)=>{
-                console.log(v.value)
-                let result = this.records.filter((e)=> e.value == v.value)
-                try{
-                    console.log(result[0].code)
+            symbol.forEach((v, i, a) => {
+                //console.log(v.value)
+                let result = this.records.filter((e) => e.value == v.value)
+                try {
+                    //console.log(result[0].code)
                     hCode[i].value = result[0].code
-                }catch(err){
+                } catch (err) {
 
                 }
-                
+
             });
             //console.log("this.table : ", this.table)
+            // Set the Lav
+            this.Lav = this.getLav(this.records);
+            // Set the entropy
+            this.entropy = this.getEntropy(this.records);
+        },
+        getLav(array) {
+            array = objectCopy(array);
+            let lav = 0;
+            for (let i of array) {
+                lav += i.probability * 0.01 * i.code.length;
+            }
+            return lav;
+        },
+        getEntropy(array) {
+            console.log('hi')
+            let radix = Number(this.radix);
+            radix == '' ? radix=2:radix
+            array = objectCopy(array);
+            let entropy = 0;
+            for (let i of array) {
+                console.log(radix)
+                let persent = i.probability *0.01;
+                entropy += persent * log(radix,1/persent);
+            }
+            return entropy;
         },
         /**
          * 執行Huffman編碼
@@ -316,7 +352,6 @@ const page = {
             }
             if (array.length == radix) return this.parsing(this.table, radix, array.length);
             else this.huffman(array, radix);
-
         },
         /**
          * this function is to parsing array
@@ -344,7 +379,7 @@ const page = {
                 if (a.value < b.value) return -1;
                 return 0;
             })
-            console.log(this.records);
+            //console.log(this.records);
         },
         followRoute(content = { 'value': '', 'probability': 0, 'parent': [], 'code': '' }, index) {
             content.code = index;
@@ -368,6 +403,26 @@ function objectCopy(array = []) {
     let tmp = new Array();
     tmp = JSON.parse(JSON.stringify(array));
     return tmp;
+}
+/**
+ * This Function return the value that the sum of all number in array
+ */
+function arraySum(array) {
+    let ary = objectCopy(array);
+    let sum = 0;
+    for (let i of ary) {
+        sum += Number(i);
+    }
+    return sum;
+}
+/**
+ * This function can return Math.log(y) / Math.log(x)
+ * @param {Number} x base
+ * @param {Number} y exponent
+ * @returns 
+ */
+function log(x, y) {
+    return Math.log(y) / Math.log(x);
 }
 Vue.createApp(page).mount("#mount-point");
 

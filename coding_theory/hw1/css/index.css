@@ -10,3 +10,8 @@
 .input-field{
     text-align: center;
 }
+.content{
+    
+    display: flex;
+    justify-content: space-between;
+}
