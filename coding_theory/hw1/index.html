@@ -51,13 +51,14 @@
                 </div>
             </div>
             <br>
+
             <p>
             <h1>使用說明</h1>
             在"Symbols"的地方輸入欲轉成Huffman Code的內容，
             並在機率的部分逐一填入相對應的出現機率以下為示範內容：
             </p>
             <div class="example">
-
+                <h1>Example</h1>
                 <div class="input-group mb-3">
                     <label class="col-2">Preview : </label>
                     <input class="form-control" type="text" placeholder="Preview Input Symbol Sets"
@@ -85,13 +86,14 @@
                 </div>
             </div>
             <br>
+            <p>填入所有必需的資料後按下執行就會直接執行。當前的版本Radix預設值為2且不可變動。無自動添加虛擬碼功能</p>
             <h1>作業內容</h1>
             <p>
 
                 請各位同學設計程式，實作一個霍夫曼編碼的程式，讓使用者最多能夠設定10個符號以及機率(機率和要等於1)﹐<br>
                 然後產生每個符號的對應編碼值並且計算該信息源的entropy以及平均編碼長度。 繳交內容包括: <br>
 
-                1. 程式碼以及相關程式說明(<a href="https://github.com/karta2341940/karta2341940.github.io/tree/master/coding_theory/hw1">Source Code</a>) <br>
+                1. 程式碼以及相關程式說明(<a href="https://github.com/karta2341940/karta2341940.github.io/tree/master/coding_theory/hw1">Source Code</a>程式邏輯位於js/index.js中)<br>
                 2. 執行結果與理論推導是否正確(至少五種不同的符號分布情形) <br>
                 3. 如果有利用到網站上面提供的部分程式碼，請在文件上面做說明 <br>
                 4. 如果還有用到進階的技術(例如能夠考量當時的輸入符號數目自動以虛擬符號產生更佳的解等等)請在文件上面做說明 <br>
@@ -110,6 +112,9 @@
                     Runtime : <a href="https://nodejs.org">Node.js</a>
                 </p>
             </div>
+            <h1>軟體說明</h1>
+            本程式是以網頁的形式撰寫並用<a href="https://www.electronjs.org/">Electron</a>將其封裝成應用程式故可由此<a href="https://karta2341940.github.io/coding_theory/hw1/index.html">https://karta2341940.github.io/coding_theory/hw1/index.html</a>連結直接開啟網頁使用<br>
+            <h1><a href="https://karta2341940.github.io/">Follow My Home Page</a></h1>
         </div>
     </div>
 </body>
