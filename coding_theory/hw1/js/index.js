@@ -3,8 +3,8 @@ const page = {
     data() {
         return {
             data: "Hello World",
-            inputValue: ["我", "愛", "小海", "(空格)", "520",0],
-            inputProbability: [50,20,10,15,5,0],
+            inputValue: ["我", "愛", "小海", "(空格)", "520", 0],
+            inputProbability: [10, 20, 30, 40, 0, 0],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
             exampleSetP: ['20', '20', '20', '20', '20'], // 示範用的input Probability
             temp: "",
@@ -92,7 +92,6 @@ const page = {
             symbolInput[i].readOnly = true;
             probabilityInput[i].readOnly = true;
         }
-        //this.runHuffMan();
     },
     methods: {
         /**
@@ -109,14 +108,13 @@ const page = {
             let probabilityInput = document.querySelectorAll('.probability-Input');
             // Initial Huffman code field
             let huffman = document.querySelectorAll('.code');
-            for(let i of huffman){
+            for (let i of huffman) {
                 i.value = '';
             }
             let notNull = 0;
             symbolInput.forEach((v, i) => { if (v.value) notNull = i });
             if (this.sw) {
                 notNull = nullNumber;
-                //console.log("Hi")
             }
             for (let i = 0; i < symbolInput.length; i++) {
                 symbolInput[i].readOnly = false;
@@ -130,14 +128,19 @@ const page = {
             // ----------------------------SECTION END----------------------------
             // To remove the empty string data from inputValue array.
             if (this.inputValue[notNull + 1] == '') this.inputValue.pop();
+            // 自動為相對應機率的空格補0
             if (this.inputValue.length <= 10) {
-                // 自動為相對應機率的空格補0
+                let temp = objectCopy(this.inputProbability);
                 this.inputProbability = new Array();
+                this.inputProbability = temp;
+                this.inputProbability[this.inputValue.length-1]=0;
+                /*
                 for (let i in this.inputValue) {
                     if (this.inputValue[i] != undefined || this.inputValue[i] != null) {
                         this.inputProbability[i] = 0;
                     }
-                }
+                }*/
+
                 this.temp = this.inputValue
             }
             else {
@@ -165,12 +168,15 @@ const page = {
                 alert("機率不可小於0");
                 this.inputProbability[indexNow] = 0;
             }
-            if (String(this.inputProbability[indexNow][0]) == '0' && String(this.inputProbability[indexNow]).length > 1) {
+            /*
+            console.log(String(this.inputProbability[indexNow][0]))
+            if (String(this.inputProbability[indexNow][0]) === '0' && String(this.inputProbability[indexNow]).length > 1) {
                 this.inputProbability[indexNow] = String(this.inputProbability[indexNow]).substring(1, 2)
             }
+*/
+            // 實時確認機率是否大於100%
             for (let index in this.inputProbability) {
                 value = Number(this.inputProbability[index]);
-                // 實時確認機率是否大於100%
                 if (Number(temp + value) > 100) {
                     alert("機率不可大於100%");
                     // 如果大於100%則將該值歸零
@@ -276,12 +282,13 @@ const page = {
                 if (a.probability < b.probability) return 1;
                 return 0;
             })
+            console.log(this.table)
             this.huffman(tempTable);
             let hCode = document.querySelectorAll('.code');
-            let symbol = document.querySelectorAll('input.symbol-Input');
-            symbol.forEach((v, i, a) => {
+            this.inputValue.forEach((v, i, a) => {
                 //console.log(v.value)
-                let result = this.records.filter((e) => e.value == v.value)
+                let result = this.records.filter((e) => e.value == v)
+                console.log(i)
                 try {
                     //console.log(result[0].code)
                     hCode[i].value = result[0].code
@@ -290,6 +297,7 @@ const page = {
                 }
 
             });
+            console.log('End : ', this.records)
             //console.log("this.table : ", this.records)
             // Set the Lav
             this.Lav = this.getLav(this.records);
@@ -306,15 +314,14 @@ const page = {
             return lav;
         },
         getEntropy(array) {
-            //console.log('hi')
             let radix = Number(this.radix);
-            radix == '' ? radix=2:radix
+            radix == '' ? radix = 2 : radix
             array = objectCopy(array);
             let entropy = 0;
             for (let i of array) {
-                console.log(radix)
-                let persent = i.probability *0.01;
-                entropy += persent * log(radix,1/persent);
+                let persent = i.probability * 0.01;
+                if (persent == 0) continue;
+                entropy += persent * log(radix, 1 / persent);
             }
             return entropy;
         },
@@ -367,7 +374,7 @@ const page = {
 
             let haveParent = 0;
             array[0].forEach((content, i, arr) => {
-                if (content.value == '' && content.code == '') {
+                if (content.value === '' && content.code === '') {
                     this.followRoute(content, i);
                     haveParent++;
                 }
@@ -386,15 +393,20 @@ const page = {
         },
         followRoute(content = { 'value': '', 'probability': 0, 'parent': [], 'code': '' }, index) {
             content.code = index;
-            content.parent.forEach((v, i, a) => {
-                if (v.value == '' && v.code == '') {
-                    this.followRoute(v, String(index) + String(i));
-                }
-                else {
-                    v.code = String(index) + String(i);
-                    this.records.push(v);
-                }
-            });
+            let temp = objectCopy(this.records)
+            console.log("Temp : ", temp);
+            try {
+
+                content.parent.forEach((v, i, a) => {
+                    if (v.value === '' && v.code === '') {
+                        this.followRoute(v, String(index) + String(i));
+                    }
+                    else {
+                        v.code = String(index) + String(i);
+                        this.records.push(v);
+                    }
+                });
+            } catch (err) { }
         }
     },
 }
@@ -425,7 +437,7 @@ function arraySum(array) {
  * @returns 
  */
 function log(x, y) {
-    return Math.log(y) / Math.log(x);
+    return parseFloat(Math.log(y) / Math.log(x));
 }
 Vue.createApp(page).mount("#mount-point");
 
