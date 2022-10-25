@@ -43,8 +43,8 @@ const page = {
  ` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
     `8888888P'     8            `Yo 8 888888888888        8 8888      
             */
-            //this.inputProbability = new Array();
-            //this.inputValue = new Array();
+            this.inputProbability = new Array();
+            this.inputValue = new Array();
             for (let i = 0; i < this.inputValue.length; i++) {
                 /*                                             
 8888888 8888888888 8 8888888888      d888888o.   8888888 8888888888   
@@ -69,7 +69,7 @@ const page = {
  ` 8888     ,88'   8         `Y8o.` 8 8888                8 8888      
     `8888888P'     8            `Yo 8 888888888888        8 8888      
 */
-                //this.inputProbability[i] = 0;
+                this.inputProbability[i] = 0;
             }
             this.temp = this.inputValue
         }
