@@ -87,11 +87,6 @@ const page = {
         inputProbability() {
             this.persentage = arraySum(this.inputProbability);
         },
-        /**
-         * 當Symbol被修改時自動將機率填入0並關掉readOnly
-         */
-        inputValue() {
-        }
     },
     mounted() {
         let symbolInput = document.querySelectorAll('.symbol-Input');
