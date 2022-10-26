@@ -7,7 +7,7 @@ const page = {
                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
                 ['1', '2', '3', '4', '5'],
                 ['5', '4', '3', '2', '1'],
-                ['0000', '0001', '0010', '0100', '1000', '1001', '1101', '0011'],
+                ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I'],
             ],
             sampleDataP: [
                 '',
@@ -48,25 +48,49 @@ const page = {
         }
     },
     watch: {
+        /**
+         * 當範例被選擇時自動將範例資料填入
+         */
         selectIndex() {
-            
-            this.inputValue = objectCopy(this.selectIndex)
             let si = document.querySelectorAll('.symbol-Input');
             let pi = document.querySelectorAll('.probability-Input');
-            for(let j in si){
+            let hc = document.querySelectorAll('.code');
+            hc.forEach(v => { v.value = '' });
+            for (let j in si) {
                 si[j].readOnly = true;
                 pi[j].readOnly = true;
             }
-            for(let i in this.sampleDataV){
-                if( this.sampleDataV[i] == this.selectIndex){
+            for (let i in this.sampleDataV) {
+                if (this.sampleDataV[i] === this.selectIndex) {
                     this.inputProbability = objectCopy(this.sampleDataP[i])
-                    for(let j in this.inputValue){
+                    this.inputValue = objectCopy(this.selectIndex);
+                    if (this.inputValue.length == 0) {
+                        this.inputValue = [];
+                        si[0].readOnly = false;
+                        pi[0].readOnly = false;
+                        return;
+                    }
+                    else{
+                        this.inputValue = objectCopy(this.selectIndex);
+                    }
+                    for (let j in this.inputValue) {
                         si[j].readOnly = false;
                         pi[j].readOnly = false;
                     }
                 }
             }
             //console.log(this.selectIndex)
+        },
+        /**
+         * 當機率被修改時，會自動計算機率總和
+         */
+        inputProbability() {
+            this.persentage = arraySum(this.inputProbability);
+        },
+        /**
+         * 當Symbol被修改時自動將機率填入0並關掉readOnly
+         */
+        inputValue() {
         }
     },
     mounted() {
@@ -90,7 +114,6 @@ const page = {
          * 並且偵測輸入的Symbol有多少個根據其個數填補0於機率欄
          */
         inputDetect(nullNumber) {
-            this.persentage = arraySum(this.inputProbability);
             // ----------------------------SECTION----------------------------
             /*
              * The function of this section is to make the input-field turn into read-only
@@ -215,6 +238,7 @@ const page = {
          * 開始執行Huffman的編碼
          */
         runHuffMan() {
+            console.log('Hi')
             //console.clear()
             // Detect repeat symbol
             let symbolInput = document.querySelectorAll('.symbol-Input');
