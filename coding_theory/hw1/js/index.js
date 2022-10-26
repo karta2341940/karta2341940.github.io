@@ -8,7 +8,7 @@ const page = {
                 ['1', '2', '3', '4', '5'],
                 ['5', '4', '3', '2', '1'],
                 ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I'],
-                ['A','B']
+                ['A', 'B']
             ],
             sampleDataP: [
                 '',
@@ -17,7 +17,7 @@ const page = {
                 [60, 0, 10, 0, 30],
                 [90, 5, 0, 4, 1],
                 [5, 10, 15, 20, 5, 5, 10, 30],
-                [50,50]
+                [50, 50]
             ],
             inputValue: [],
             inputProbability: [],
@@ -72,7 +72,7 @@ const page = {
                         pi[0].readOnly = false;
                         return;
                     }
-                    else{
+                    else {
                         this.inputValue = objectCopy(this.selectIndex);
                     }
                     for (let j in this.inputValue) {
@@ -89,6 +89,14 @@ const page = {
         inputProbability() {
             this.persentage = arraySum(this.inputProbability);
         },
+        radix() {
+            if (this.radix < 0) {
+                this.radix = 2;
+            }
+            if (this.radix > 10) {
+                this.radix = 10;
+            }
+        }
     },
     mounted() {
         let symbolInput = document.querySelectorAll('.symbol-Input');
@@ -216,27 +224,11 @@ const page = {
                 this.inputProbability[value] = '';
             }
         },
-        radixInput() {
-            if (this.radix == '') {
-                return;
-            }
-            if (this.radix < 2) {
-                this.radix = 2;
-                alert("Radix can't less than 2");
-                return;
-            }
-            if (this.radix > this.inputValue.length) {
-                this.radix = this.inputValue.length;
-                alert("Radix can't large than total of symbol");
-                return;
-            }
-        },
         /**
          * 開始執行Huffman的編碼
          */
         runHuffMan() {
-            //console.clear()
-            // Detect repeat symbol
+            console.clear()
             let symbolInput = document.querySelectorAll('.symbol-Input');
             let notNull = 0;
             symbolInput.forEach((v, i) => { if (v.value) notNull = i });
@@ -247,6 +239,7 @@ const page = {
                     return;
                 }
             }
+            // Detect repeat symbol
             let repeat = this.inputValue.filter((v, i, a) => a.indexOf(v) !== i);
             if (repeat.length) {
                 this.inputValue = [];
@@ -255,6 +248,7 @@ const page = {
                 this.inputDetect(0);
                 return alert("Don't input repeat symbol")
             }
+
             // To initialized the table and records array
             this.table = [];
             this.records = [];
@@ -277,39 +271,27 @@ const page = {
                 this.table[0].push({
                     'value': this.inputValue[i],
                     'probability': Number(this.inputProbability[i]),
-                    'code': ''
-                })
-                tempTable.push({
-                    'value': this.inputValue[i],
-                    'probability': Number(this.inputProbability[i]),
-                    'code': ''
+                    'code': '',
+                    'parent': []
                 })
             }
-            this.table[0].sort((a, b) => {
-                if (a.probability > b.probability) return -1;
-                if (a.probability < b.probability) return 1;
-                return 0;
-            })
             // 將結果排序
-            tempTable.sort((a, b) => {
-                if (a.probability > b.probability) return -1;
-                if (a.probability < b.probability) return 1;
-                return 0;
-            })
-            
-            this.huffman(tempTable);
-            let hCode = document.querySelectorAll('.code');
-            this.inputValue.forEach((v, i, a) => {
-                //console.log(v.value)
-                let result = this.records.filter((e) => e.value == v)
-                try {
-                    //console.log(result[0].code)
-                    hCode[i].value = result[0].code
-                } catch (err) {
+            sort(this.table[0]);
+            let radix = this.radix;
+            if (!radix) radix = 2;
+            if (radix > this.inputValue.length) {
+                alert(`Radix can't bigger than the sum of symbols`)
+                return;
+            }
 
-                }
+            this.huffman(objectCopy(this.table[0]));
+            let hCode = document.querySelectorAll('.code');
+            this.inputValue.forEach((v, i) => {
+                // 將符合symbol內容的
+                let result = this.records.filter((e) => e.value == v)
+                hCode[i].value = result[0].code;
             });
-            //console.log("this.table : ", this.records)
+            console.log("294 this.table",this.table)
             // Set the Lav
             this.Lav = this.getLav(this.records);
             // Set the entropy
@@ -319,21 +301,18 @@ const page = {
             array = objectCopy(array);
             let lav = 0;
             for (let i of array) {
-                lav += i.probability * 0.01 * i.code.length;
-                //console.log(lav," Probability : ",i.probability," Length : ",i.code.length)
+                lav += parseFloat(i.probability * 0.01 * i.code.length);
             }
-            return lav;
+            return parseFloat(lav);
         },
         getEntropy(array) {
             let radix = Number(this.radix);
             radix == '' ? radix = 2 : radix
             array = objectCopy(array);
             let entropy = 0;
-            console.log(array)
             for (let i of array) {
                 let persent = i.probability * 0.01;
                 if (persent == 0) continue;
-                console.log(persent * log(radix, 1 / persent))
                 entropy += persent * log(radix, 1 / persent);
             }
             return parseFloat(entropy);
@@ -344,17 +323,16 @@ const page = {
          * @param {Number} radix - 基底數。用以決定huffman code在產生時以多少個Symbol為一組相加
          * @return {Array}
          */
-        huffman(array = [{ 'value': String(), 'probability': Number() }], radix = 2) {
-            if (radix < 2) radix = 2;
-            if (radix > array.length) radix = array.length;
-            if (array.length <radix )return;
-            let temp = {
-                "value": '',
-                "probability": 0,
-                'parent': [],
-                'code': ''
-            };
-            for (let i = array.length - 1; i > array.length - radix - 1; i--) {
+        huffman(array = [{ 'value': String(), 'probability': Number(), 'code': Number(), 'parent': Array() }], radix = 2) {
+            // 如果符號數量等於radix 直接送去parsing
+            if (array.length === radix) {
+                this.parsing(array, radix);
+                return;
+            }
+            // 將符號陣列反轉後將最小的radix位相加
+            array.reverse();
+            let temp = { "value": '', "probability": 0, 'parent': [], 'code': '' };
+            for (let i = 0; i < radix; i++) {
                 temp.probability += array[i].probability;
                 temp.parent.unshift({
                     'value': array[i].value,
@@ -363,18 +341,17 @@ const page = {
                     'code': ''
                 });
             }
-            for (let i = 0; i < radix; i++) array.pop()
-            array.push(temp);
-            array.sort((a, b) => {
-                if (a.probability >= b.probability) return -1;
-                if (a.probability < b.probability) return 1;
-            })
-            this.table[this.table.length] = new Array();
-            for (let i of array) {
-                this.table[this.table.length - 1].push(i)
-            }
-            if (array.length == radix) return this.parsing(this.table, radix, array.length);
-            else this.huffman(array, radix);
+            // 並再次反轉然後將最小的radix位pop出去接著push進去相加後的結果並重新排列
+            array.reverse();
+            for (let i = 0; i < radix; i++) array.pop();
+            array.push(objectCopy(temp));
+            sort(array);
+            // 重新排列後將結果推進this.table
+            this.table.push(objectCopy(array));
+            console.log("352 array",objectCopy(array))
+            // 判別是否相加到最後了(symbol數只剩radix個)否的話繼續相加
+            if (array.length == radix) return this.parsing(array, radix);
+            else return this.huffman(array, radix);
         },
         /**
          * this function is to parsing array
@@ -382,11 +359,15 @@ const page = {
          */
         parsing(ary = [], radix = 2) {
             let array = [[{ 'value': '', 'probability': 0, 'code': '', 'parent': [] }]];
-            array = objectCopy(ary).reverse();
-            //array.forEach((value, index, array) => {
-
+            array = objectCopy(ary);
             let haveParent = 0;
-            array[0].forEach((content, i, arr) => {
+            console.log("---------------------")
+            console.log("396: Array.length:", array.length)
+            console.log("397: Array:", array)
+            console.log("398: radix:", radix)
+            console.log("---------------------")
+            array.forEach((content, i) => {
+                console.log("403 i:",i," content : ", content)
                 if (content.value === '' && content.code === '') {
                     this.followRoute(content, i);
                     haveParent++;
@@ -396,30 +377,21 @@ const page = {
                     this.records.push(content);
                 }
             })
-            //})
-            this.records.sort((a, b) => {
-                if (a.value > b.value) return 1;
-                if (a.value < b.value) return -1;
-                return 0;
-            })
-            //console.log(this.records);
+            sort(this.records)
+            
         },
         followRoute(content = { 'value': '', 'probability': 0, 'parent': [], 'code': '' }, index) {
             content.code = index;
-            let temp = objectCopy(this.records)
-            //console.log("Temp : ", temp);
-            try {
+            content.parent.forEach((v, i, a) => {
+                if (v.value === '' && v.code === '') {
+                    this.followRoute(v, String(index) + String(i));
+                }
+                else {
+                    v.code = String(index) + String(i);
+                    this.records.push(v);
+                }
+            });
 
-                content.parent.forEach((v, i, a) => {
-                    if (v.value === '' && v.code === '') {
-                        this.followRoute(v, String(index) + String(i));
-                    }
-                    else {
-                        v.code = String(index) + String(i);
-                        this.records.push(v);
-                    }
-                });
-            } catch (err) { }
         }
     },
 }
@@ -451,6 +423,29 @@ function arraySum(array) {
  */
 function log(x, y) {
     return parseFloat(Math.log(y) / Math.log(x));
+}
+/**
+ * 將陣列重新排序
+ * 0 : a=b=>a往上排
+ * 1 : a=b=>a不動
+ * @param {Array} array 要排序的陣列
+ * @param {Number} version 排序的版本 default : 0(往上排)
+ */
+function sort(array = [], version = 0) {
+    if (version) {
+
+        array.sort((a, b) => {
+            if (a.probability >= b.probability) return -1;
+            if (a.probability < b.probability) return 1;
+        });
+    }
+    else {
+        array.sort((a, b) => {
+            if (a.probability > b.probability) return -1;
+            if (a.probability < b.probability) return 1;
+            return 0;
+        });
+    }
 }
 Vue.createApp(page).mount("#mount-point");
 
