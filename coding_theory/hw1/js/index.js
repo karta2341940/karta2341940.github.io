@@ -8,6 +8,7 @@ const page = {
                 ['1', '2', '3', '4', '5'],
                 ['5', '4', '3', '2', '1'],
                 ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I'],
+                ['A','B']
             ],
             sampleDataP: [
                 '',
@@ -16,6 +17,7 @@ const page = {
                 [60, 0, 10, 0, 30],
                 [90, 5, 0, 4, 1],
                 [5, 10, 15, 20, 5, 5, 10, 30],
+                [50,50]
             ],
             inputValue: [],
             inputProbability: [],
@@ -233,7 +235,6 @@ const page = {
          * 開始執行Huffman的編碼
          */
         runHuffMan() {
-            console.log('Hi')
             //console.clear()
             // Detect repeat symbol
             let symbolInput = document.querySelectorAll('.symbol-Input');
@@ -295,6 +296,7 @@ const page = {
                 if (a.probability < b.probability) return 1;
                 return 0;
             })
+            
             this.huffman(tempTable);
             let hCode = document.querySelectorAll('.code');
             this.inputValue.forEach((v, i, a) => {
@@ -327,12 +329,14 @@ const page = {
             radix == '' ? radix = 2 : radix
             array = objectCopy(array);
             let entropy = 0;
+            console.log(array)
             for (let i of array) {
                 let persent = i.probability * 0.01;
                 if (persent == 0) continue;
+                console.log(persent * log(radix, 1 / persent))
                 entropy += persent * log(radix, 1 / persent);
             }
-            return entropy;
+            return parseFloat(entropy);
         },
         /**
          * 執行Huffman編碼
@@ -343,7 +347,7 @@ const page = {
         huffman(array = [{ 'value': String(), 'probability': Number() }], radix = 2) {
             if (radix < 2) radix = 2;
             if (radix > array.length) radix = array.length;
-            if (array.length == radix) return;
+            if (array.length <radix )return;
             let temp = {
                 "value": '',
                 "probability": 0,
