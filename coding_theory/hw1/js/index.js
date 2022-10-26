@@ -1,8 +1,22 @@
-// <a href="https://www.flaticon.com/free-icons/h" title="h icons">H icons created by Freepik - Flaticon</a>
 const page = {
     data() {
         return {
-            data: "Hello World",
+            sampleDataV: [
+                '',
+                ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10'],
+                ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                ['1', '2', '3', '4', '5'],
+                ['5', '4', '3', '2', '1'],
+                ['0000', '0001', '0010', '0100', '1000', '1001', '1101', '0011'],
+            ],
+            sampleDataP: [
+                '',
+                [5, 5, 5, 5, 10, 10, 20, 10, 5, 25],
+                [20, 30, 5, 5, 5, 5, 20, 10],
+                [60, 0, 10, 0, 30],
+                [90, 5, 0, 4, 1],
+                [5, 10, 15, 20, 5, 5, 10, 30],
+            ],
             inputValue: [],
             inputProbability: [],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
@@ -15,6 +29,7 @@ const page = {
             persentage: 0,
             Lav: 0,
             entropy: 0,
+            selectIndex: 0,
         }
     },
     async created() {
@@ -30,6 +45,28 @@ const page = {
         else {
             this.inputValue = this.temp
             alert("You can only input 10 symbols")
+        }
+    },
+    watch: {
+        selectIndex() {
+            
+            this.inputValue = objectCopy(this.selectIndex)
+            let si = document.querySelectorAll('.symbol-Input');
+            let pi = document.querySelectorAll('.probability-Input');
+            for(let j in si){
+                si[j].readOnly = true;
+                pi[j].readOnly = true;
+            }
+            for(let i in this.sampleDataV){
+                if( this.sampleDataV[i] == this.selectIndex){
+                    this.inputProbability = objectCopy(this.sampleDataP[i])
+                    for(let j in this.inputValue){
+                        si[j].readOnly = false;
+                        pi[j].readOnly = false;
+                    }
+                }
+            }
+            //console.log(this.selectIndex)
         }
     },
     mounted() {
@@ -251,7 +288,6 @@ const page = {
 
                 }
             });
-            console.log(this.table)
             //console.log("this.table : ", this.records)
             // Set the Lav
             this.Lav = this.getLav(this.records);
@@ -296,7 +332,6 @@ const page = {
                 'code': ''
             };
             for (let i = array.length - 1; i > array.length - radix - 1; i--) {
-                console.log(i)
                 temp.probability += array[i].probability;
                 temp.parent.unshift({
                     'value': array[i].value,

@@ -15,7 +15,12 @@
     <div id="mount-point">
         <div class="container">
             <div class="executeBox1">
-
+                <div class="input-group mb-3">
+                    <label class="col-2">Sample :</label>
+                    <select class="form-control col-8" v-model="selectIndex">
+                        <option v-for="(item,i) in sampleDataV" :value="sampleDataV[i]">{{item}}</option>
+                    </select>
+                </div>
                 <div class="input-group mb-3">
                     <label class="col-2">Preview : </label>
                     <input class="form-control col-8" type="text" placeholder="Preview Input Symbol Sets"
