@@ -19,6 +19,7 @@ const page = {
                 [5, 10, 15, 20, 5, 5, 10, 30],
                 [50, 50]
             ],
+            data: 'hello',
             inputValue: [],
             inputProbability: [],
             exampleSetV: ["我", "愛", "小海", "(空格)", "520"], // 示範用的input Value
@@ -32,9 +33,13 @@ const page = {
             Lav: 0,
             entropy: 0,
             selectIndex: 0,
+            readmeClick: false,
+            exampleClick: false,
+            clicked: []
         }
     },
     async created() {
+        console.log('Created')
         this.persentage = arraySum(this.inputProbability);
         if (this.inputValue.length <= 10) {
             this.inputProbability = new Array();
@@ -58,15 +63,19 @@ const page = {
             let pi = document.querySelectorAll('.probability-Input');
             let hc = document.querySelectorAll('.code');
             hc.forEach(v => { v.value = '' });
+            // 將所有的readonly property設為true
             for (let j in si) {
                 si[j].readOnly = true;
                 pi[j].readOnly = true;
             }
             for (let i in this.sampleDataV) {
+                // compare all the data set in sampleDataV
                 if (this.sampleDataV[i] === this.selectIndex) {
+                    // copy a new array to inputProbability
                     this.inputProbability = objectCopy(this.sampleDataP[i])
                     this.inputValue = objectCopy(this.selectIndex);
                     if (this.inputValue.length == 0) {
+                        //如果是空陣列就只關閉第一個input欄位的readonly
                         this.inputValue = [];
                         si[0].readOnly = false;
                         pi[0].readOnly = false;
@@ -284,14 +293,14 @@ const page = {
                 return;
             }
 
-            this.huffman(objectCopy(this.table[0]));
+            this.huffman(objectCopy(this.table[0]), radix);
             let hCode = document.querySelectorAll('.code');
             this.inputValue.forEach((v, i) => {
                 // 將符合symbol內容的
                 let result = this.records.filter((e) => e.value == v)
                 hCode[i].value = result[0].code;
             });
-            console.log("294 this.table",this.table)
+            console.log("294 this.table", this.table)
             // Set the Lav
             this.Lav = this.getLav(this.records);
             // Set the entropy
@@ -324,8 +333,10 @@ const page = {
          * @return {Array}
          */
         huffman(array = [{ 'value': String(), 'probability': Number(), 'code': Number(), 'parent': Array() }], radix = 2) {
-            // 如果符號數量等於radix 直接送去parsing
-            if (array.length === radix) {
+            console.log("332 radix:", radix)
+
+            // 如果符號數量less or equal than radix 直接送去parsing
+            if (array.length <= radix) {
                 this.parsing(array, radix);
                 return;
             }
@@ -348,7 +359,7 @@ const page = {
             sort(array);
             // 重新排列後將結果推進this.table
             this.table.push(objectCopy(array));
-            console.log("352 array",objectCopy(array))
+            console.log("357 array", objectCopy(array))
             // 判別是否相加到最後了(symbol數只剩radix個)否的話繼續相加
             if (array.length == radix) return this.parsing(array, radix);
             else return this.huffman(array, radix);
@@ -367,7 +378,7 @@ const page = {
             console.log("398: radix:", radix)
             console.log("---------------------")
             array.forEach((content, i) => {
-                console.log("403 i:",i," content : ", content)
+                console.log("403 i:", i, " content : ", content)
                 if (content.value === '' && content.code === '') {
                     this.followRoute(content, i);
                     haveParent++;
@@ -378,7 +389,7 @@ const page = {
                 }
             })
             sort(this.records)
-            
+
         },
         followRoute(content = { 'value': '', 'probability': 0, 'parent': [], 'code': '' }, index) {
             content.code = index;

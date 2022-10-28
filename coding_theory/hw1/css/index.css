@@ -11,7 +11,31 @@
     text-align: center;
 }
 .content{
-    
     display: flex;
     justify-content: space-between;
+}
+.block{
+    margin: 10px 0px;
+    display: block;
+    position: inherit;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: rgb(204, 231, 255);
+}
+.block-content{
+    display: block;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 1s;
+}
+.block.active .block-content{
+    max-height: 50em;
+    transition: max-height 0.8s;
+}
+.block h1{
+    display: block;
+    position: inherit;
+    user-select: none;
+    text-align: center;
+    cursor: pointer;
 }
