@@ -477,5 +477,5 @@ function sort(array = [], version = 0) {
 }
 
 Vue.createApp(page).mount("body");
-
+console.log("Vue");
 
