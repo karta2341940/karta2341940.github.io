@@ -13,127 +13,130 @@
 </head>
 
 <body>
-    <div class="err">
-        <div v-for="i in errMsg"class="inside col-2">
-            Error:{{i}}
-        </div>
-    </div>
-    <div class="container">
-        <div class="executeBox1">
-            <div class="input-group mb-3">
-                <label class="col-2">Sample :</label>
-                <select class="form-control col-8" v-model="selectIndex">
-                    <option v-for="(item,i) in sampleDataV" :value="sampleDataV[i]">{{item}}</option>
-                </select>
-            </div>
-            <div class="input-group mb-3">
-                <label class="col-2">Preview : </label>
-                <input class="form-control col-8" type="text" placeholder="Preview Input Symbol Sets"
-                    v-model.value="inputValue" readonly>
-            </div>
-            <div class="input-group mb-3" vue-on:loaded="loaded">
-                <label class="col-2">Symbols : </label>
-                <input v-for="i in 10" class="col-1 form-control input-field symbol-Input" type="text"
-                    v-model.value="inputValue[i-1]" @input="inputDetect">
-            </div>
-            <div class="input-group mb-3">
-                <label class="col-2">Huffman code : </label>
-                <input v-for="i in 10" class="col-1 form-control input-field code" type="text" readonly>
-            </div>
-            <div class="input-group mb-3">
-                <label class="col-2">機率( {{persentage}} %) : </label>
-                <input v-for="i in 10" class="col-1 form-control input-field probability-Input" type="text"
-                    v-model="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)">
-            </div>
-            <div class="input-group mb-3">
-                <label class="col-2">Radix : </label>
-                <input class="col-1 input-field" type="text" placeholder="2" v-model="radix"
-                    style="border:1px solid #ced4da">
-                <button class="btn btn-light col-1 btn-outline-primary" @click="runHuffMan(radix)">Execute</button>
-            </div>
-            <div class="content">
-                <h4>
-                    平均編碼長度 : {{Lav}}
-                </h4>
-                <h4>
-                    Entropy : {{entropy}}
-                </h4>
+    <div id="app">
+
+        <div class="err">
+            <div v-for="i in errMsg" class="inside col-2">
+                Error:{{i}}
             </div>
         </div>
-        <div class="block" :class="{active:clicked[0]}">
-            <h1 @click="clicked[0]=!clicked[0]">使用說明</h1>
-            <div class="block-content">
-                在"Symbols"的地方輸入欲轉成Huffman Code的內容，
-                並在機率的部分逐一填入相對應的出現機率以下為示範內容：
-                <br>
-                <br>
-                <div>
-                    <div class="input-group mb-3">
-                        <label class="col-2">Preview : </label>
-                        <input class="form-control" type="text" placeholder="Preview Input Symbol Sets"
-                            v-model.value="exampleSetV" readonly>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="col-2">Symbols : </label>
-                        <input v-for="i in 10" class="col-1 form-control input-field" type="text"
-                            v-model.value="exampleSetV[i-1]">
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="col-2">Huffman code : </label>
-                        <input v-for="i in 10" class="col-1 form-control input-field" type="text">
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="col-2">機率(%) : </label>
-                        <input v-for="i in 10" class="col-1 form-control input-field" type="text"
-                            v-model.value='exampleSetP[i-1]'>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="col-2">Radix : </label>
-                        <input class="col-1 input-field" type="text" placeholder="2" v-model="radix" @input="radixInput"
-                            style="border:1px solid #ced4da ">
-                        <button class="btn btn-light col-1 btn-outline-primary">執行</button>
-                    </div>
+        <div class="container">
+            <div class="executeBox1">
+                <div class="input-group mb-3">
+                    <label class="col-2">Sample :</label>
+                    <select class="form-control col-8" v-model="selectIndex">
+                        <option v-for="(item,i) in sampleDataV" :value="sampleDataV[i]">{{item}}</option>
+                    </select>
                 </div>
-                <br>
-                <p>填入所有必需的資料後按下執行就會直接執行。無自動添加虛擬碼功能</p>
+                <div class="input-group mb-3">
+                    <label class="col-2">Preview : </label>
+                    <input class="form-control col-8" type="text" placeholder="Preview Input Symbol Sets"
+                        v-model.value="inputValue" readonly>
+                </div>
+                <div class="input-group mb-3" vue-on:loaded="loaded">
+                    <label class="col-2">Symbols : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field symbol-Input" type="text"
+                        v-model.value="inputValue[i-1]" @input="inputDetect">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">Huffman code : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field code" type="text" readonly>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">機率( {{persentage}} %) : </label>
+                    <input v-for="i in 10" class="col-1 form-control input-field probability-Input" type="text"
+                        v-model="inputProbability[i-1]" @input="probabilityInput(i-1)" @click="probabilityClick(i-1)">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="col-2">Radix : </label>
+                    <input class="col-1 input-field" type="text" placeholder="2" v-model="radix"
+                        style="border:1px solid #ced4da">
+                    <button class="btn btn-light col-1 btn-outline-primary" @click="runHuffMan(radix)">Execute</button>
+                </div>
+                <div class="content">
+                    <h4>
+                        平均編碼長度 : {{Lav}}
+                    </h4>
+                    <h4>
+                        Entropy : {{entropy}}
+                    </h4>
+                </div>
             </div>
-        </div>
-
-        <div class="block" :class="{active:clicked[1]}">
-
-            <h1 @click="clicked[1]=!clicked[1]">作業要求</h1>
-            <div class="block-content">
-                <p>
-
-                    請各位同學設計程式，實作一個霍夫曼編碼的程式，讓使用者最多能夠設定10個符號以及機率(機率和要等於1)﹐<br>
-                    然後產生每個符號的對應編碼值並且計算該信息源的entropy以及平均編碼長度。 繳交內容包括: <br>
-
-                    1. 程式碼以及相關程式說明<br>
-                    2. 執行結果與理論推導是否正確(至少五種不同的符號分布情形) <br>
-                    3. 如果有利用到網站上面提供的部分程式碼，請在文件上面做說明 <br>
-                    4. 如果還有用到進階的技術(例如能夠考量當時的輸入符號數目自動以虛擬符號產生更佳的解等等)請在文件上面做說明 <br>
-                    5. 另外要上傳執行檔案(exe)以及說明文件(readme)告訴老師要如何執行
-                </p>
+            <div class="block" :class="{active:clicked[0]}">
+                <h1 @click="clicked[0]=!clicked[0]">使用說明</h1>
+                <div class="block-content">
+                    在"Symbols"的地方輸入欲轉成Huffman Code的內容，
+                    並在機率的部分逐一填入相對應的出現機率以下為示範內容：
+                    <br>
+                    <br>
+                    <div>
+                        <div class="input-group mb-3">
+                            <label class="col-2">Preview : </label>
+                            <input class="form-control" type="text" placeholder="Preview Input Symbol Sets"
+                                v-model.value="exampleSetV" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="col-2">Symbols : </label>
+                            <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                                v-model.value="exampleSetV[i-1]">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="col-2">Huffman code : </label>
+                            <input v-for="i in 10" class="col-1 form-control input-field" type="text">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="col-2">機率(%) : </label>
+                            <input v-for="i in 10" class="col-1 form-control input-field" type="text"
+                                v-model.value='exampleSetP[i-1]'>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="col-2">Radix : </label>
+                            <input class="col-1 input-field" type="text" placeholder="2" v-model="radix"
+                                @input="radixInput" style="border:1px solid #ced4da ">
+                            <button class="btn btn-light col-1 btn-outline-primary">執行</button>
+                        </div>
+                    </div>
+                    <br>
+                    <p>填入所有必需的資料後按下執行就會直接執行。無自動添加虛擬碼功能</p>
+                </div>
             </div>
-        </div>
 
-        <div class="block" :class="{active:clicked[2]}">
-            <h1 @click="clicked[2]=!clicked[2]">Credit</h1>
-            <div class="block-content">
-                <p>
-                    FrontEnd Framework : <a href="https://vuejs.org/">Vue.js</a>、<a
-                        href="https://getbootstrap.com/">Bootstrap</a>
-                    <br>
-                    BackEnd : <a href="https://www.github.com">Github</a>
-                    <br>
-                    ICON:<a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer
-                        icons
-                        created by xnimrodx - Flaticon</a><br>
-                    Executable file bundle tool :<a href="https://www.electronjs.org/">Electron</a> , <a
-                        href="https://www.electron.build/">electron-builder</a>
-                    Runtime : <a href="https://nodejs.org">Node.js</a>
-                </p>
-                <h1><a href="https://karta2341940.github.io/">Follow My Home Page</a></h1>
+            <div class="block" :class="{active:clicked[1]}">
+
+                <h1 @click="clicked[1]=!clicked[1]">作業要求</h1>
+                <div class="block-content">
+                    <p>
+
+                        請各位同學設計程式，實作一個霍夫曼編碼的程式，讓使用者最多能夠設定10個符號以及機率(機率和要等於1)﹐<br>
+                        然後產生每個符號的對應編碼值並且計算該信息源的entropy以及平均編碼長度。 繳交內容包括: <br>
+
+                        1. 程式碼以及相關程式說明<br>
+                        2. 執行結果與理論推導是否正確(至少五種不同的符號分布情形) <br>
+                        3. 如果有利用到網站上面提供的部分程式碼，請在文件上面做說明 <br>
+                        4. 如果還有用到進階的技術(例如能夠考量當時的輸入符號數目自動以虛擬符號產生更佳的解等等)請在文件上面做說明 <br>
+                        5. 另外要上傳執行檔案(exe)以及說明文件(readme)告訴老師要如何執行
+                    </p>
+                </div>
+            </div>
+
+            <div class="block" :class="{active:clicked[2]}">
+                <h1 @click="clicked[2]=!clicked[2]">Credit</h1>
+                <div class="block-content">
+                    <p>
+                        FrontEnd Framework : <a href="https://vuejs.org/">Vue.js</a>、<a
+                            href="https://getbootstrap.com/">Bootstrap</a>
+                        <br>
+                        BackEnd : <a href="https://www.github.com">Github</a>
+                        <br>
+                        ICON:<a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer
+                            icons
+                            created by xnimrodx - Flaticon</a><br>
+                        Executable file bundle tool :<a href="https://www.electronjs.org/">Electron</a> , <a
+                            href="https://www.electron.build/">electron-builder</a>
+                        Runtime : <a href="https://nodejs.org">Node.js</a>
+                    </p>
+                    <h1><a href="https://karta2341940.github.io/">Follow My Home Page</a></h1>
+                </div>
             </div>
         </div>
     </div>

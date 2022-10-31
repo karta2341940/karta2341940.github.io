@@ -476,6 +476,6 @@ function sort(array = [], version = 0) {
     }
 }
 
-Vue.createApp(page).mount("body");
+Vue.createApp(page).mount("#app");
 console.log("Vue");
 
